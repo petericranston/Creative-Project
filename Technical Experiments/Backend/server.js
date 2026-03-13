@@ -3,27 +3,35 @@ const cors = require("cors");
 const dotenv = require("dotenv").config(); //Configuring my .env for secret keys (mongodb)
 
 const app = express();
+const github = require("./models/github");
 
-app.use(cors());
 app.use(express.json());
-
-const threeMinutes = 3 * 60 * 1000; //Variables to decide how long the user will be singed in for
-const oneHour = 1 * 60 * 60 * 1000;
 
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
   }),
-  //Starting a session to keep user signed in and store user data to use throughout the app
-  sessions({
-    secret: "No Secret Yet",
-    cookie: { maxAge: oneHour },
-    resave: false,
-    saveUninitialized: false,
-  }),
 );
 
+app.get("/", (request, response) => {
+  response.send("Backend running");
+});
+
+// app.post("/api/getData", async (request, response) => {
+//   response.json({ success: true });
+// });
+
+app.get("/api/data", async (request, response) => {
+  try {
+    const data = await github.test(); //Getting the data from the github model
+    response.json(data); //Sending data to frontend
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.listen(3000, () => {
-  console.log("Server running on port http://localhost:5173/");
+  console.log("Server running on port http://localhost:3000/");
+  github.test().then(console.log);
 });
