@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 function App() {
+  const [data, setData] = useState(null);
+
   useEffect(() => {
     //Getting data from the backend
     const fetchData = async () => {
@@ -11,6 +13,7 @@ function App() {
       });
       const data = await response.json();
       console.log(data);
+      setData(data);
     };
     fetchData();
   }, []);
@@ -22,6 +25,7 @@ function App() {
       </header>
       <main>
         <p>Main</p>
+        <p>Github Data: {data}</p>
       </main>
     </div>
   );
