@@ -1,7 +1,7 @@
-async function test() {
+async function githubData() {
   return 12;
 }
 
 module.exports = {
-  test,
+  githubData,
 };

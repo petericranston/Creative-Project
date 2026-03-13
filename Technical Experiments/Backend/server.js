@@ -24,7 +24,7 @@ app.get("/", (request, response) => {
 
 app.get("/api/data", async (request, response) => {
   try {
-    const data = await github.test(); //Getting the data from the github model
+    const data = await github.githubData(); //Getting the data from the github model
     response.json(data); //Sending data to frontend
   } catch (error) {
     console.log(error);
@@ -33,5 +33,5 @@ app.get("/api/data", async (request, response) => {
 
 app.listen(3000, () => {
   console.log("Server running on port http://localhost:3000/");
-  github.test().then(console.log);
+  github.githubData().then(console.log);
 });
