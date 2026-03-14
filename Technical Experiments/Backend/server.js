@@ -22,9 +22,18 @@ app.get("/", (request, response) => {
 //   response.json({ success: true });
 // });
 
-app.get("/api/data", async (request, response) => {
+app.get("/api/overview", async (request, response) => {
   try {
-    const data = await github.githubData(); //Getting the data from the github model
+    const data = await github.overview(); //Getting the data from the github model
+    response.json(data); //Sending data to frontend
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/api/contributors", async (request, response) => {
+  try {
+    const data = await github.contributorData(); //Getting the data from the github model
     response.json(data); //Sending data to frontend
   } catch (error) {
     console.log(error);
@@ -33,5 +42,6 @@ app.get("/api/data", async (request, response) => {
 
 app.listen(3000, () => {
   console.log("Server running on port http://localhost:3000/");
-  github.githubData().then(console.log);
+  github.contributorData().then(console.log);
+  github.overview().then(console.log);
 });
