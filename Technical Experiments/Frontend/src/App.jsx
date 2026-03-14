@@ -23,7 +23,7 @@ function App() {
         <h1>New Page</h1>
       </header>
       <main>
-        <p>Main</p>
+        <h2>Contribution Data</h2>
         {data &&
           data.map((user, index) => (
             <p key={index}>
