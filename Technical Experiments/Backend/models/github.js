@@ -1,5 +1,5 @@
 async function githubData() {
-  return 12;
+  return 10;
 }
 
 module.exports = {

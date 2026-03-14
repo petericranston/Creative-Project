@@ -12,7 +12,6 @@ function App() {
         credentials: "include",
       });
       const data = await response.json();
-      console.log(data);
       setData(data);
     };
     fetchData();
