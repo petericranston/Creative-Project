@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     //Getting data from the backend
@@ -24,7 +24,12 @@ function App() {
       </header>
       <main>
         <p>Main</p>
-        <p>Github Data: {data}</p>
+        {data &&
+          data.map((user, index) => (
+            <p key={index}>
+              {user.username}: {user.commits} commits
+            </p>
+          ))}
       </main>
     </div>
   );
