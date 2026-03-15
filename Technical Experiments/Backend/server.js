@@ -40,6 +40,15 @@ app.get("/api/contributors", async (request, response) => {
   }
 });
 
+app.get("/api/filesContent", async (request, response) => {
+  try {
+    const data = await github.repoContent(); //Getting the data from the github model
+    response.json(data); //Sending data to frontend
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.listen(3000, () => {
   console.log("Server running on port http://localhost:3000/");
   github.contributorData().then(console.log);

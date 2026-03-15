@@ -1,8 +1,13 @@
 const { Octokit } = require("@octokit/rest");
+const express = require("express");
+require("dotenv").config();
 
-const octokit = new Octokit({});
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+});
+
 const owner = "petericranston";
-const repo = "Bath-City-Farm-Project";
+const repo = "Creative-Project";
 
 async function overview() {
   try {
@@ -46,7 +51,29 @@ async function contributorData() {
   }
 }
 
+async function repoContent() {
+  try {
+    const response = await octokit.rest.git.getTree({
+      owner: owner,
+      repo: repo,
+      tree_sha: "main", // default branch name
+      recursive: "true", //Tells the api to return every file instead of just the top level contents (from the repo top folder)
+    });
+
+    const files = response.data.tree
+      .filter((item) => item.type === "blob") // removes folders and keeps only actual files
+      .map((file) => ({
+        name: file.path.split("/").pop(),
+        path: file.path,
+      }));
+    return files;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   overview,
   contributorData,
+  repoContent,
 };

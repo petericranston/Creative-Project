@@ -5,6 +5,7 @@ import { useEffect } from "react";
 function App() {
   const [overviewData, setOverviewData] = useState([]);
   const [contributorData, setContributorData] = useState([]);
+  const [filesContent, setFilesContent] = useState([]);
 
   useEffect(() => {
     //Getting data from the backend
@@ -23,15 +24,21 @@ function App() {
       const data = await response.json();
       setOverviewData(data);
     };
+
+    const fetchFilesContent = async () => {
+      const response = await fetch("/api/filesContent", {
+        credentials: "include",
+      });
+      const data = await response.json();
+      setFilesContent(data);
+    };
     fetchContributors();
     fetchOverview();
+    fetchFilesContent();
+
+    console.log(filesContent);
   }, []);
 
-  // name: repoData.name,
-  // full_name: repoData.full_name,
-  // created_at: repoData.created_at,
-  // updated_at: repoData.updated_at,
-  // language: repoData.language,
   return (
     <div>
       <header>
@@ -48,6 +55,14 @@ function App() {
           contributorData.map((user, index) => (
             <p key={index}>
               {user.username}: {user.commits} commits
+            </p>
+          ))}
+        <h2>Files Content</h2>
+
+        {filesContent &&
+          filesContent.map((file, index) => (
+            <p key={index}>
+              {file.name} - {file.path}
             </p>
           ))}
       </main>
