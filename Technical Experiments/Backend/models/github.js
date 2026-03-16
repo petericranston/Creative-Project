@@ -7,7 +7,7 @@ const octokit = new Octokit({
 });
 
 const owner = "petericranston";
-const repo = "Creative-Project";
+const repo = "Bath-City-Farm-Project";
 
 async function overview() {
   try {

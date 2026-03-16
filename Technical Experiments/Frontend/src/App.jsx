@@ -35,8 +35,6 @@ function App() {
     fetchContributors();
     fetchOverview();
     fetchFilesContent();
-
-    console.log(filesContent);
   }, []);
 
   return (
