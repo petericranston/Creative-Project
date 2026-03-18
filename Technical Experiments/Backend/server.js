@@ -3,7 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv").config(); //Configuring my .env for secret keys (mongodb)
 
 const app = express();
-const github = require("./models/github");
+const github = require("./APIs/github");
 
 app.use(express.json());
 
