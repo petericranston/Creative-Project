@@ -55,6 +55,19 @@ function App() {
               {user.username}: {user.commits} commits
             </p>
           ))}
+        <h2>Dominance Detection</h2>
+        {contributorData &&
+          contributorData.map((user, index) => (
+            <p key={index}>
+              {user.username}: {user.dominanceScore}%
+            </p>
+          ))}
+        <h3>Top Contributor</h3>
+        <h4>
+          {contributorData.length > 0 //Displaying the top contributor (the array is already organised based on dominance percentage so i just get the first index)
+            ? contributorData[0].username
+            : "Loading..."}
+        </h4>
         <h2>Files Content</h2>
 
         {filesContent &&

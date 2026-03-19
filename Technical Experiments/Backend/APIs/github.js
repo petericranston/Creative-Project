@@ -57,7 +57,7 @@ async function repoContent() {
       owner: owner,
       repo: repo,
       tree_sha: "main", // default branch name
-      recursive: "true", //Tells the api to return every file instead of just the top level contents (from the repo top folder)
+      recursive: true, //Tells the api to return every file instead of just the top level contents (from the repo top folder)
     });
 
     const files = response.data.tree
