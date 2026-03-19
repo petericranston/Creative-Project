@@ -59,12 +59,12 @@ function App() {
         {contributorData &&
           contributorData.map((user, index) => (
             <p key={index}>
-              {user.username}: {user.dominanceScore}%
+              {user.username}: {user.dominanceScore}
             </p>
           ))}
         <h3>Top Contributor</h3>
         <h4>
-          {contributorData.length > 0 //Displaying the top contributor (the array is already organised based on dominance percentage so i just get the first index)
+          {contributorData.length > 0 //Displaying the top contributor (the array is already organized based on dominance percentage so I just get the first index)
             ? contributorData[0].username
             : "Loading..."}
         </h4>

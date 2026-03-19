@@ -34,18 +34,21 @@ async function overview() {
 
 async function contributorData() {
   try {
-    const response = await octokit.rest.repos.listContributors({
+    const response = await octokit.rest.repos.getContributorsStats({
       //Gets the contributor data from the github REST API
       owner: owner,
       repo: repo,
     });
+    if (!response.data) return []; // handles GitHub delays
 
     const contributors = response.data.map((user) => ({
       //Organises the contributor data
-      username: user.login,
-      commits: user.contributions,
+      username: user.author.login,
+      commits: user.total,
+      additions: user.weeks.reduce((sum, w) => sum + w.a, 0),
+      deletions: user.weeks.reduce((sum, w) => sum + w.d, 0),
     }));
-    return contributors;
+    return contributors; //Returns contributor data
   } catch (error) {
     console.log(error);
   }

@@ -38,8 +38,8 @@ app.get("/api/contributors", async (request, response) => {
     const totalCommits = data.reduce((sum, u) => sum + u.commits, 0); //Calculating the total commits in the repo
 
     const result = analysis.calculateDominance(data, totalCommits); //Calling function that calculates the dominance detection
-    console.log(totalCommits);
-    console.log("Dominance Result: ", result);
+    console.log(totalCommits); //Logging total commits
+    console.log("Dominance Result: ", result); //Logging dominance results
     response.json(result); //Sending results back to the frontend (includes dominance analysis)
   } catch (error) {
     console.log(error);
