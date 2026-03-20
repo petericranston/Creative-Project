@@ -3,12 +3,21 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 function App() {
+  const [repos, setRepos] = useState([]);
   const [overviewData, setOverviewData] = useState([]);
   const [contributorData, setContributorData] = useState([]);
   const [filesContent, setFilesContent] = useState([]);
 
   useEffect(() => {
     //Getting data from the backend
+    const getRepos = async () => {
+      const response = await fetch("/api/getRepos", {
+        credentials: "include",
+      });
+      const data = await response.json();
+      setRepos(data);
+    };
+
     const fetchContributors = async () => {
       const response = await fetch("/api/contributors", {
         credentials: "include",
@@ -32,6 +41,7 @@ function App() {
       const data = await response.json();
       setFilesContent(data);
     };
+    getRepos();
     fetchContributors();
     fetchOverview();
     fetchFilesContent();
@@ -43,6 +53,8 @@ function App() {
         <h1>Codebase Health Monitor</h1>
       </header>
       <main>
+        <h2>Users Repositories</h2>
+        {repos && repos.map((user, index) => <p key={index}>{user.name}</p>)}
         <h2>Overview</h2>
         <p>Repo Name: {overviewData.name}</p>
         <p>Created at: {overviewData.created_at}</p>

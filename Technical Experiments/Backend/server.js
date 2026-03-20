@@ -55,6 +55,16 @@ app.get("/api/filesContent", async (request, response) => {
   }
 });
 
+app.get("/api/getRepos", async (request, response) => {
+  try {
+    const data = await github.getRepos(); //Getting the data from the github model
+    response.json(data); //Sending data to frontend
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.listen(3000, () => {
   console.log("Server running on port http://localhost:3000/");
 });

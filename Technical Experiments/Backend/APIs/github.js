@@ -74,9 +74,25 @@ async function repoContent() {
     console.log(error);
   }
 }
+async function getRepos() {
+  try {
+    const response = await octokit.rest.repos.listForUser({
+      username: owner,
+      sort: "updated",
+    });
+
+    return response.data.map((repo) => ({
+      name: repo.name,
+    }));
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 module.exports = {
   overview,
   contributorData,
   repoContent,
+  getRepos,
 };
