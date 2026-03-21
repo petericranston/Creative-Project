@@ -2,6 +2,15 @@ import "./App.css";
 import { useState } from "react";
 import { useEffect } from "react";
 
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
 function App() {
   const [repos, setRepos] = useState([]);
   const [overviewData, setOverviewData] = useState([]);
@@ -67,6 +76,22 @@ function App() {
               {user.username}: {user.commits} commits
             </p>
           ))}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ResponsiveContainer width={800} height={300}>
+            <BarChart data={contributorData}>
+              <XAxis dataKey="username" />
+              <YAxis />
+              <Bar dataKey="commits" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
         <h2>Dominance Detection</h2>
         {contributorData &&
           contributorData.map((user, index) => (
