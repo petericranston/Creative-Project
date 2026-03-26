@@ -16,16 +16,17 @@ async function overview() {
       repo: repo,
     });
 
-    const repoData = response.data;
+    const repoData = response.data; //Setting data
 
     const overview = {
+      //Organising data
       name: repoData.name,
       created_at: repoData.created_at,
       updated_at: repoData.updated_at,
       language: repoData.language,
     };
 
-    return overview;
+    return overview; //Returning the organised data
   } catch (error) {
     console.log(error);
   }
@@ -87,14 +88,17 @@ async function repoContent() {
     console.log(error);
   }
 }
+
 async function getRepos() {
   try {
     const response = await octokit.rest.repos.listForUser({
+      //Getting data
       username: owner,
       sort: "updated",
     });
 
     return response.data.map((repo) => ({
+      //Getting the repo names from the username
       name: repo.name,
     }));
   } catch (error) {
