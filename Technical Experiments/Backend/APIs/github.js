@@ -32,24 +32,38 @@ async function overview() {
 }
 
 async function contributorData() {
-  try {
-    const response = await octokit.rest.repos.getContributorsStats({
-      //Gets the contributor data from the github REST API
-      owner: owner,
-      repo: repo,
-    });
-    if (!response.data) return []; // handles GitHub delays
+  const MAX_RETRIES = 5;
+  const RETRY_DELAY_MS = 3000; // 3 seconds between retries
 
-    const contributors = response.data.map((user) => ({
-      //Organises the contributor data
-      username: user.author.login,
-      commits: user.total,
-      additions: user.weeks.reduce((sum, w) => sum + w.a, 0),
-      deletions: user.weeks.reduce((sum, w) => sum + w.d, 0),
-    }));
-    return contributors; //Returns contributor data
-  } catch (error) {
-    console.log(error);
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const response = await octokit.rest.repos.getContributorsStats({
+        //Gets the contributor data from the github REST API
+        owner: owner,
+        repo: repo,
+      });
+
+      //This block checks if github has returned data and if so it continues and if not it tries again, this is to mitigate the common issue associated with this API endpoint
+      if (response.status === 202) {
+        if (attempt < MAX_RETRIES) {
+          await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+        }
+        continue;
+      }
+
+      if (!response.data) return []; // handles GitHub delays
+
+      const contributors = response.data.map((user) => ({
+        //Organises the contributor data
+        username: user.author.login,
+        commits: user.total,
+        additions: user.weeks.reduce((sum, w) => sum + w.a, 0),
+        deletions: user.weeks.reduce((sum, w) => sum + w.d, 0),
+      }));
+      return contributors; //Returns contributor data
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
