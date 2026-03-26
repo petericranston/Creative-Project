@@ -10,6 +10,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Routes, Route } from "react-router-dom";
+import Overview from "./pages/overview";
 
 function App() {
   const [repos, setRepos] = useState([]);
@@ -61,7 +63,9 @@ function App() {
       <header>
         <h1>Codebase Health Monitor</h1>
       </header>
-      <main></main>
+      <Routes>
+        <Route path="/" element={<Overview />} />
+      </Routes>
     </div>
   );
 }
