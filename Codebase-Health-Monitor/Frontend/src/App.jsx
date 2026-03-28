@@ -11,7 +11,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/navbar";
 import Overview from "./pages/overview";
+import Contribution from "./pages/Contribution";
+import Risk from "./pages/Risk";
 
 function App() {
   const [repos, setRepos] = useState([]);
@@ -63,9 +66,17 @@ function App() {
       <header>
         <h1>Codebase Health Monitor</h1>
       </header>
-      <Routes>
-        <Route path="/" element={<Overview />} />
-      </Routes>
+
+      <div style={{ display: "flex" }}>
+        <Navbar />
+        <main style={{ flex: 1, padding: "2rem" }}>
+          <Routes>
+            <Route path="/" element={<Overview />} />
+            <Route path="/contribution" element={<Contribution />} />
+            <Route path="/risk" element={<Risk />} />{" "}
+          </Routes>
+        </main>
+      </div>
     </div>
   );
 }

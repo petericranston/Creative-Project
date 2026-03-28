@@ -1,0 +1,36 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  width: 14%;
+  height: 100%;
+  padding: 2rem 1rem;
+  background: #272953;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  list-style: none;
+  color: #16113a;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #16113a;
+}
+
+.link:hover {
+  background: #16113a;
+  color: #272953;
+}
