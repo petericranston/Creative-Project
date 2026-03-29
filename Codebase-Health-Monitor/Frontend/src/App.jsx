@@ -11,8 +11,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/navbar";
-import Overview from "./pages/overview";
+import Navbar from "./components/Navbar";
+import Overview from "./pages/Overview";
 import Contribution from "./pages/Contribution";
 import Risk from "./pages/Risk";
 
@@ -62,7 +62,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="root">
       <header>
         <h1>Codebase Health Monitor</h1>
       </header>

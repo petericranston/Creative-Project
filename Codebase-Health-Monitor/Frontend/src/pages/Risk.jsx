@@ -1,3 +1,7 @@
 export default function Risk() {
-  return;
+  return (
+    <div>
+      <h2>Risk</h2>
+    </div>
+  );
 }

@@ -12,7 +12,7 @@ export default function Navbar() {
     <nav className="nav">
       <ul className="links">
         {links.map((link) => (
-          <li key={link}>
+          <li key={link.to}>
             <NavLink to={link.to} end className="link">
               {link.label}
             </NavLink>
