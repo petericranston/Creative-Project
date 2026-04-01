@@ -67,7 +67,7 @@ function App() {
         <h1>Codebase Health Monitor</h1>
       </header>
 
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
         <Navbar />
         <main style={{ flex: 1, padding: "2rem" }}>
           <Routes>

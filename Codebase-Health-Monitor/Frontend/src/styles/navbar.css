@@ -5,6 +5,7 @@
   height: 100%;
   padding: 2rem 1rem;
   background: #272953;
+  box-sizing: border-box;
 }
 
 .links {
@@ -23,14 +24,17 @@
 .link {
   display: block;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 500;
   padding: 8px 12px;
   border-radius: 8px;
   background-color: #16113a;
+  height: 23vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .link:hover {
-  background: #16113a;
-  color: #272953;
+  background: #1c1645;
 }
