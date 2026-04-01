@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import "../styles/overview.css";
 
 import {
   BarChart,
