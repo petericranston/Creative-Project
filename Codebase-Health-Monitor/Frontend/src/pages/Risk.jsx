@@ -1,7 +1,7 @@
 export default function Risk() {
   return (
     <div>
-      <h2>Risk</h2>
+      <h2 className="text-2xl font-semibold">Risk</h2>
     </div>
   );
 }

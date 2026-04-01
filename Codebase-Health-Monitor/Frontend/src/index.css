@@ -1,3 +1,4 @@
+@import "tailwindcss";
 :root {
   --text: white;
   --text-h: #08060d;
