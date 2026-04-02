@@ -11,8 +11,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Overview from "./pages/Overview";
+import Overview from "./pages/overview";
+import Navbar from "./components/navbar";
 import Contribution from "./pages/Contribution";
 import Risk from "./pages/Risk";
 
