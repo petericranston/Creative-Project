@@ -6,14 +6,13 @@ const octokit = new Octokit({
 });
 
 const owner = "petericranston";
-const repo = "Bath-City-Farm-Project";
 
-async function overview() {
+async function overview(chosenRepo) {
   try {
     const response = await octokit.rest.repos.get({
       //Gets the repo overview from the github REST API
       owner: owner,
-      repo: repo,
+      repo: chosenRepo,
     });
 
     const repoData = response.data; //Setting data
@@ -32,8 +31,8 @@ async function overview() {
   }
 }
 
-async function contributorData() {
-  const MAX_RETRIES = 5;
+async function contributorData(chosenRepo) {
+  const MAX_RETRIES = 10;
   const RETRY_DELAY_MS = 3000; // 3 seconds between retries
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
@@ -41,15 +40,16 @@ async function contributorData() {
       const response = await octokit.rest.repos.getContributorsStats({
         //Gets the contributor data from the github REST API
         owner: owner,
-        repo: repo,
+        repo: chosenRepo,
       });
 
       //This block checks if github has returned data and if so it continues and if not it tries again, this is to mitigate the common issue associated with this API endpoint
       if (response.status === 202) {
         if (attempt < MAX_RETRIES) {
           await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+        } else {
+          return [];
         }
-        continue;
       }
 
       if (!response.data) return []; // handles GitHub delays
@@ -64,6 +64,7 @@ async function contributorData() {
       return contributors; //Returns contributor data
     } catch (error) {
       console.log(error);
+      return [];
     }
   }
 }

@@ -24,8 +24,11 @@ app.get("/", (request, response) => {
 // });
 
 app.get("/api/overview", async (request, response) => {
+  chosenRepo = request.query.repo;
+  console.log("overview called with repo:", chosenRepo);
+
   try {
-    const data = await github.overview(); //Getting the data from the github model
+    const data = await github.overview(chosenRepo); //Getting the data from the github model
     response.json(data); //Sending data to frontend
   } catch (error) {
     console.log(error);
@@ -33,8 +36,11 @@ app.get("/api/overview", async (request, response) => {
 });
 
 app.get("/api/contributors", async (request, response) => {
+  chosenRepo = request.query.repo;
+  console.log("contributors called with repo:", chosenRepo);
+
   try {
-    const data = await github.contributorData(); //Getting the data from the github model
+    const data = await github.contributorData(chosenRepo); //Getting the data from the github model
     const totalCommits = data.reduce((sum, u) => sum + u.commits, 0); //Calculating the total commits in the repo
 
     const result = analysis.calculateDominance(data, totalCommits); //Calling function that calculates the dominance detection
