@@ -33,12 +33,12 @@ export default function Overview() {
   return (
     <div>
       <h2 className="text-2xl font-semibold">Overview</h2>
-      {repos &&
+      {/* {repos &&
         repos.map((user, index) => (
           <p className="text-base" key={index}>
             {user.name}
           </p>
-        ))}
+        ))} */}
     </div>
   );
 }
