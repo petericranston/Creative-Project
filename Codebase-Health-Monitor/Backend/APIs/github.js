@@ -46,25 +46,25 @@ async function contributorData(chosenRepo) {
       //This block checks if github has returned data and if so it continues and if not it tries again, this is to mitigate the common issue associated with this API endpoint
       if (response.status === 202) {
         if (attempt < MAX_RETRIES) {
+          console.log("202");
           await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
         } else {
           return [];
         }
       }
 
-      if (!response.data) return []; // handles GitHub delays
-
-      const contributors = response.data.map((user) => ({
-        //Organises the contributor data
-        username: user.author.login,
-        commits: user.total,
-        additions: user.weeks.reduce((sum, w) => sum + w.a, 0),
-        deletions: user.weeks.reduce((sum, w) => sum + w.d, 0),
-      }));
-      return contributors; //Returns contributor data
+      if (response.data) {
+        const contributors = response.data.map((user) => ({
+          //Organises the contributor data
+          username: user.author.login,
+          commits: user.total,
+          additions: user.weeks.reduce((sum, w) => sum + w.a, 0),
+          deletions: user.weeks.reduce((sum, w) => sum + w.d, 0),
+        }));
+        return contributors; //Returns contributor data
+      }
     } catch (error) {
       console.log(error);
-      return [];
     }
   }
 }
