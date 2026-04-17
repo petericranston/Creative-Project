@@ -33,7 +33,7 @@ async function overview(chosenRepo) {
 
 async function contributorData(chosenRepo) {
   const MAX_RETRIES = 10;
-  const RETRY_DELAY_MS = 3000; // 3 seconds between retries
+  const RETRY_DELAY_MS = 3000; // Time between retries
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
