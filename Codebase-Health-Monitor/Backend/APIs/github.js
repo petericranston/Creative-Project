@@ -48,6 +48,7 @@ async function contributorData(chosenRepo) {
         if (attempt < MAX_RETRIES) {
           console.log("202");
           await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+          continue;
         } else {
           return [];
         }
