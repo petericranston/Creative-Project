@@ -9,6 +9,9 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  LineChart,
+  Line,
+  Legend,
 } from "recharts";
 
 export default function Overview() {
@@ -16,6 +19,7 @@ export default function Overview() {
   const [chosenRepo, setChosenRepo] = useState();
   const [overviewData, setOverviewData] = useState([]);
   const [contributorData, setContributorData] = useState([]);
+  const [timelineData, setTimelineData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -36,7 +40,8 @@ export default function Overview() {
       credentials: "include",
     });
     const data = await response.json();
-    setContributorData(data);
+    setContributorData(data.contributors);
+    setTimelineData(data.timeline);
     console.log("contributors:", data);
   };
 
@@ -47,6 +52,19 @@ export default function Overview() {
     const data = await response.json();
     setOverviewData(data);
   };
+
+  const contributors = //Setting the contributor data for the commits over time graph
+    timelineData.length > 0
+      ? [
+          ...new Set(
+            timelineData.flatMap(
+              (entry) => Object.keys(entry).filter((k) => k !== "day"), //Calculates is daily
+            ),
+          ),
+        ]
+      : [];
+
+  const COLOURS = ["#8884d8", "#82ca9d", "#ff7f7f", "#ffc658", "#a4de6c"]; //Settings the colours for contributors
 
   return (
     <div>
@@ -94,14 +112,37 @@ export default function Overview() {
           </div>
         </div>
       </div>
-      <div className="bg-[#272953] w-[400px] h-[400px] flex rounded-lg items-center justify-center mt-4">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={contributorData}>
-            <XAxis dataKey="username" />
-            <YAxis />
-            <Bar dataKey="commits" />
-          </BarChart>
-        </ResponsiveContainer>
+      <div className="flex gap-4">
+        <div className="bg-[#272953] w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
+          <p className="text-base">Commits per Contributor</p>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={contributorData}>
+              <XAxis dataKey="username" />
+              <YAxis />
+              <Bar dataKey="commits" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="bg-[#272953] w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
+          <p className="text-base">Contributions Over Time</p>
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={timelineData}>
+              <XAxis dataKey="day" interval="preserveStartEnd" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              {contributors.map((name, i) => (
+                <Line
+                  key={name}
+                  type="monotone"
+                  dataKey={name}
+                  stroke={COLOURS[i % COLOURS.length]}
+                  dot={false}
+                />
+              ))}
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

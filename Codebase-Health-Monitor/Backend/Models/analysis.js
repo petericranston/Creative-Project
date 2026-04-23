@@ -9,4 +9,6 @@ function calculateDominance(users, totalCommits) {
     .sort((a, b) => b.dominanceScore - a.dominanceScore); //Organses the users from most dominant to least
 }
 
-module.exports = { calculateDominance };
+function calculateHealthScore(contributors, timeline, lastUpdated) {}
+
+module.exports = { calculateDominance, calculateHealthScore };

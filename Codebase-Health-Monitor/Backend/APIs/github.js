@@ -32,41 +32,63 @@ async function overview(chosenRepo) {
 }
 
 async function contributorData(chosenRepo) {
-  const MAX_RETRIES = 10;
-  const RETRY_DELAY_MS = 3000; // Time between retries
-
-  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-    try {
-      const response = await octokit.rest.repos.getContributorsStats({
-        //Gets the contributor data from the github REST API
-        owner: owner,
-        repo: chosenRepo,
-      });
-
-      //This block checks if github has returned data and if so it continues and if not it tries again, this is to mitigate the common issue associated with this API endpoint
-      if (response.status === 202) {
-        if (attempt < MAX_RETRIES) {
-          console.log("202");
-          await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
-          continue;
-        } else {
-          return [];
+  try {
+    const { repository } = await octokit.graphql(
+      //Getting the data using graphQL (much more reliable than the github REST API Endpoints, essentially just asking for specific data and getting only that data)
+      //Nested question
+      `
+      query($owner: String!, $repo: String!) {
+        repository(owner: $owner, name: $repo) {
+          defaultBranchRef { 
+            target {
+              ... on Commit {
+                history(first: 100) {
+                  nodes {
+                    author { user { login } }
+                    additions
+                    deletions
+                    committedDate
+                  }
+                }
+              }
+            }
+          }
         }
       }
+    `,
+      { owner, repo: chosenRepo },
+    );
 
-      if (response.data) {
-        const contributors = response.data.map((user) => ({
-          //Organises the contributor data
-          username: user.author.login,
-          commits: user.total,
-          additions: user.weeks.reduce((sum, w) => sum + w.a, 0),
-          deletions: user.weeks.reduce((sum, w) => sum + w.d, 0),
-        }));
-        return contributors; //Returns contributor data
-      }
-    } catch (error) {
-      console.log(error);
+    const map = {};
+    const timeline = {};
+
+    for (const { author, additions, deletions, committedDate } of repository
+      .defaultBranchRef.target.history.nodes) {
+      const username = author?.user?.login; //Checking that there is a username
+      if (!username) continue;
+
+      const day = committedDate.slice(0, 10); //Organizing data into days
+
+      //Sorting the commit data (addition and deletions of text as well)
+      map[username] ??= { username, commits: 0, additions: 0, deletions: 0 };
+      map[username].commits++;
+      map[username].additions += additions;
+      map[username].deletions += deletions;
+
+      timeline[day] ??= {};
+      timeline[day][username] = (timeline[day][username] ?? 0) + 1;
     }
+
+    return {
+      //Maping the data to be sent back to the server file and frontend
+      contributors: Object.values(map),
+      timeline: Object.keys(timeline)
+        .sort()
+        .map((day) => ({ day, ...timeline[day] })),
+    };
+  } catch (error) {
+    console.log(error);
+    return { contributors: [], timeline: [] }; //If theres an error return an empty array
   }
 }
 
