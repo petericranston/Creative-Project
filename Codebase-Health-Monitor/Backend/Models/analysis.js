@@ -15,6 +15,7 @@ function calculateHealthScore(contributors, timeline, lastUpdated) {
   const totalAdditions = contributors.reduce((sum, u) => sum + u.additions, 0);
   const totalDeletions = contributors.reduce((sum, u) => sum + u.deletions, 0);
 
+  //How recently theres been updates to the repo
   const days = (Date.now() - new Date(lastUpdated)) / 86400000; //checks the last commit date against the current date and puts it in days
   const recencyScore = Math.max(0, Math.round(100 - days / 1.8)); //Gives it a score from 0 days to 180 (6 months)
 
