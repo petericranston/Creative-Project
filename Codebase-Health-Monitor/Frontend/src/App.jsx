@@ -18,48 +18,7 @@ import Risk from "./pages/Risk";
 
 function App() {
   const [repos, setRepos] = useState([]);
-  const [overviewData, setOverviewData] = useState([]);
-  const [contributorData, setContributorData] = useState([]);
-  const [filesContent, setFilesContent] = useState([]);
-
-  useEffect(() => {
-    //Getting data from the backend
-    const getRepos = async () => {
-      const response = await fetch("/api/getRepos", {
-        credentials: "include",
-      });
-      const data = await response.json();
-      setRepos(data);
-    };
-
-    const fetchContributors = async () => {
-      const response = await fetch("/api/contributors", {
-        credentials: "include",
-      });
-      const data = await response.json();
-      setContributorData(data);
-    };
-
-    const fetchOverview = async () => {
-      const response = await fetch("/api/overview", {
-        credentials: "include",
-      });
-      const data = await response.json();
-      setOverviewData(data);
-    };
-
-    const fetchFilesContent = async () => {
-      const response = await fetch("/api/filesContent", {
-        credentials: "include",
-      });
-      const data = await response.json();
-      setFilesContent(data);
-    };
-    getRepos();
-    fetchContributors();
-    fetchOverview();
-    fetchFilesContent();
-  }, []);
+  const [chosenRepo, setChosenRepo] = useState(null);
 
   return (
     <div className="root">
@@ -71,9 +30,30 @@ function App() {
         <Navbar />
         <main style={{ flex: 1, padding: "2rem" }}>
           <Routes>
-            <Route path="/" element={<Overview />} />
-            <Route path="/contribution" element={<Contribution />} />
-            <Route path="/risk" element={<Risk />} />{" "}
+            <Route
+              path="/"
+              element={
+                <Overview
+                  chosenRepo={chosenRepo}
+                  setChosenRepo={setChosenRepo}
+                />
+              }
+            />
+            <Route
+              path="/contribution"
+              element={
+                <Contribution
+                  chosenRepo={chosenRepo}
+                  setChosenRepo={setChosenRepo}
+                />
+              }
+            />
+            <Route
+              path="/risk"
+              element={
+                <Risk chosenRepo={chosenRepo} setChosenRepo={setChosenRepo} />
+              }
+            />
           </Routes>
         </main>
       </div>

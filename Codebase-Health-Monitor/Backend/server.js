@@ -41,15 +41,27 @@ app.get("/api/contributors", async (request, response) => {
 
   try {
     const data = await github.contributorData(chosenRepo); //Getting the data from the github model
+    const overviewData = await github.overview(chosenRepo);
+
     const totalCommits = data.contributors.reduce(
       (sum, u) => sum + u.commits,
       0,
     ); //Calculating the total commits in the repo
 
     const result = analysis.calculateDominance(data.contributors, totalCommits); //Calling function that calculates the dominance detection
+    const healthScore = analysis.calculateHealthScore(
+      data.contributors,
+      data.timeline,
+      overviewData.updated_at,
+    );
+
     console.log(totalCommits); //Logging total commits
     console.log("Dominance Result: ", result); //Logging dominance results
-    response.json({ contributors: result, timeline: data.timeline });
+    response.json({
+      contributors: result,
+      timeline: data.timeline,
+      healthScore: healthScore,
+    });
   } catch (error) {
     console.log(error);
   }

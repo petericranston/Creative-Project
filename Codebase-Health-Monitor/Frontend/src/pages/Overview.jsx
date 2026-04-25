@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../styles/overview.css";
 
 import {
@@ -14,44 +13,15 @@ import {
   Legend,
 } from "recharts";
 
-export default function Overview() {
+export default function Overview({ chosenRepo, setChosenRepo }) {
   const [repos, setRepos] = useState([]);
-  const [chosenRepo, setChosenRepo] = useState();
   const [overviewData, setOverviewData] = useState([]);
   const [contributorData, setContributorData] = useState([]);
   const [timelineData, setTimelineData] = useState([]);
+  const [healthScore, setHealthScore] = useState(null);
+  const [showHealthTips, setShowHealthTips] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    //Getting data from the backend
-    const getRepos = async () => {
-      const response = await fetch("/api/getRepos", {
-        credentials: "include",
-      });
-      const data = await response.json();
-      setRepos(data);
-    };
-
-    getRepos();
-  }, []);
-
-  const fetchContributors = async (repoName) => {
-    const response = await fetch(`/api/contributors?repo=${repoName}`, {
-      credentials: "include",
-    });
-    const data = await response.json();
-    setContributorData(data.contributors);
-    setTimelineData(data.timeline);
-    console.log("contributors:", data);
-  };
-
-  const fetchOverview = async (repoName) => {
-    const response = await fetch(`/api/overview?repo=${repoName}`, {
-      credentials: "include",
-    });
-    const data = await response.json();
-    setOverviewData(data);
-  };
 
   const contributors = //Setting the contributor data for the commits over time graph
     timelineData.length > 0
@@ -66,12 +36,70 @@ export default function Overview() {
 
   const COLOURS = ["#8884d8", "#82ca9d", "#ff7f7f", "#ffc658", "#a4de6c"]; //Settings the colours for contributors
 
+  useEffect(() => {
+    //Getting data from the backend
+
+    const fetchContributors = async (repoName) => {
+      const response = await fetch(`/api/contributors?repo=${repoName}`, {
+        credentials: "include",
+      });
+      const data = await response.json();
+      setContributorData(data.contributors);
+      setTimelineData(data.timeline);
+      setHealthScore(data.healthScore);
+      console.log("contributors:", data);
+    };
+
+    const fetchOverview = async (repoName) => {
+      const response = await fetch(`/api/overview?repo=${repoName}`, {
+        credentials: "include",
+      });
+      const data = await response.json();
+      setOverviewData(data);
+    };
+
+    const getRepos = async () => {
+      const response = await fetch("/api/getRepos", {
+        credentials: "include",
+      });
+      const data = await response.json();
+      setRepos(data);
+    };
+
+    if (chosenRepo) {
+      fetchContributors(chosenRepo.name);
+      fetchOverview(chosenRepo.name);
+    }
+    getRepos();
+  }, [chosenRepo]);
+
   return (
     <div>
       <h2 className="text-2xl font-semibold pb-10">Overview</h2>
       <div className="flex gap-4">
         <div className="bg-[#272953] w-[300px] h-[300px] flex rounded-lg items-center justify-center">
-          <h2 className="text-2xl">Health Score: 50%</h2>
+          <div className="text-center p-4">
+            <h2 className="text-2xl">Health Score</h2>
+            <p className="text-2xl">
+              {healthScore ? `${healthScore.overall}%` : "—"}
+            </p>
+            <button
+              onClick={() => setShowHealthTips(!showHealthTips)}
+              className="text-sm text-white hover:text-blue-300 mt-2"
+            >
+              {showHealthTips ? "Hide ▲" : "Learn more ▼"}
+            </button>
+            {showHealthTips && (
+              <div className="text-sm mt-2 text-left space-y-1">
+                <p>
+                  The health score is based on four calculations: How recently
+                  you've committed, how even the workload is, how frequently you
+                  commit and the amount of deletions vs additions to code
+                  (cleaning code)
+                </p>
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex flex-col gap-4 flex-1 h-[300px]">
           <div className="bg-[#272953] rounded-lg p-3 text-white text-sm relative flex items-center justify-center">
@@ -91,8 +119,6 @@ export default function Overview() {
                     onClick={() => {
                       setChosenRepo(repo);
                       setIsOpen(false);
-                      fetchContributors(repo.name);
-                      fetchOverview(repo.name);
                     }}
                     className="px-4 py-2 hover:bg-[#1e2044] cursor-pointer"
                   >
