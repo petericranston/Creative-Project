@@ -44,7 +44,15 @@ export default function Contribution({ chosenRepo, setChosenRepo }) {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold">Contribution</h2>
+      <h2 className="text-2xl font-semibold pb-10">Contribution</h2>
+      <div className="flex gap-4">
+        <div className="bg-[#272953] w-[400px] h-[300px] flex rounded-lg items-center justify-center"></div>
+        <div className="bg-[#272953] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center"></div>
+      </div>
+      <div className="flex gap-4 mt-4">
+        <div className="bg-[#272953] w-[400px] h-[400px] flex rounded-lg items-center justify-center"></div>
+        <div className="bg-[#272953] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center"></div>
+      </div>
     </div>
   );
 }
