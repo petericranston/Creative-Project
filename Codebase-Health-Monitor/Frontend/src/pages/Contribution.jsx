@@ -17,7 +17,6 @@ import {
 } from "recharts";
 
 export default function Contribution({ chosenRepo, setChosenRepo }) {
-  const [overviewData, setOverviewData] = useState([]);
   const [contributorData, setContributorData] = useState([]);
 
   useEffect(() => {
@@ -31,17 +30,8 @@ export default function Contribution({ chosenRepo, setChosenRepo }) {
       console.log("contributors:", data);
     };
 
-    const fetchOverview = async (repoName) => {
-      const response = await fetch(`/api/overview?repo=${repoName}`, {
-        credentials: "include",
-      });
-      const data = await response.json();
-      setOverviewData(data);
-    };
-
     if (chosenRepo) {
       fetchContributors(chosenRepo.name);
-      fetchOverview(chosenRepo.name);
     }
   }, [chosenRepo]);
 
@@ -52,7 +42,7 @@ export default function Contribution({ chosenRepo, setChosenRepo }) {
     <div>
       <h2 className="text-2xl font-semibold pb-10">Contribution</h2>
       <div className="flex gap-4">
-        <div className="bg-[#272953] w-[400px] h-[300px] flex rounded-lg items-center justify-center flex-col">
+        <div className="bg-[#272953] w-[400px] h-[330px] flex rounded-lg items-center justify-center flex-col">
           <p className="text-base">Dominance Chart</p>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -77,9 +67,9 @@ export default function Contribution({ chosenRepo, setChosenRepo }) {
           </ResponsiveContainer>
         </div>
         <div className="bg-[#272953] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
+          <h2 className="text-4xl">Top Contributor</h2>
           {topContributor && (
             <div>
-              <h2 className="text-4xl">Top Contributor</h2>
               <p className="text-xl">{topContributor.username}</p>
               <p>Dominance Score: {topContributor.dominanceScore}</p>
               <p>Commits: {topContributor.commits}</p>
@@ -90,8 +80,49 @@ export default function Contribution({ chosenRepo, setChosenRepo }) {
         </div>
       </div>
       <div className="flex gap-4 mt-4">
-        <div className="bg-[#272953] w-[400px] h-[400px] flex rounded-lg items-center justify-center"></div>
-        <div className="bg-[#272953] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center"></div>
+        <div className="bg-[#272953] w-[400px] h-[350px] flex rounded-lg items-center justify-center overflow-hidden flex-col">
+          <p className="text-base">Commits per Contributor</p>
+          <div className="overflow-y-auto w-full h-full rounded-lg p-4 text-white flex flex-1 items-center flex-col">
+            {contributorData.map((contributor, i) => (
+              <div
+                key={contributor.username}
+                className="flex items-center gap-2 py-2"
+              >
+                <div
+                  style={{ background: COLOURS[i % COLOURS.length] }}
+                  className="w-3 h-3 rounded-full"
+                />
+                <div>
+                  <p className="font-semibold">{contributor.username}</p>
+                  <p className="text-sm">{contributor.commits} commits</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="bg-[#272953] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center h-[350px] overflow-hidden">
+          <p className="text-base">Lines Added/Removed per Contributor</p>
+          <div className="overflow-y-auto w-full h-full flex flex-col flex-1 items-center">
+            {contributorData.map((contributor, i) => (
+              <div
+                key={contributor.username}
+                className="flex items-center gap-2 py-2"
+              >
+                <div
+                  style={{ background: COLOURS[i % COLOURS.length] }}
+                  className="w-3 h-3 rounded-full"
+                />
+                <div>
+                  <p className="font-semibold">{contributor.username}</p>
+                  <p className="text-sm">{contributor.additions} Lines Added</p>
+                  <p className="text-sm">
+                    {contributor.deletions} Lines Removed
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -72,8 +72,8 @@ async function contributorData(chosenRepo) {
       //Sorting the commit data (addition and deletions of text as well)
       map[username] ??= { username, commits: 0, additions: 0, deletions: 0 };
       map[username].commits++;
-      map[username].additions += additions;
-      map[username].deletions += deletions;
+      map[username].additions += Math.min(additions, 500); //Filtering out commits with more than 500 lines added (almost always bulk starting code which shouldn't be included)
+      map[username].deletions += Math.min(deletions, 500);
 
       timeline[day] ??= {};
       timeline[day][username] = (timeline[day][username] ?? 0) + 1;
