@@ -92,11 +92,11 @@ async function contributorData(chosenRepo) {
   }
 }
 
-async function repoContent() {
+async function repoContent(chosenRepo) {
   try {
     const response = await octokit.rest.git.getTree({
       owner: owner,
-      repo: repo,
+      repo: chosenRepo,
       tree_sha: "main", // default branch name
       recursive: true, //Tells the api to return every file instead of just the top level contents (from the repo top folder)
     });

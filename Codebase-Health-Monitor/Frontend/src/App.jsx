@@ -28,7 +28,7 @@ function App() {
 
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
         <Navbar />
-        <main style={{ flex: 1, padding: "2rem" }}>
+        <main style={{ flex: 1, padding: "2rem", overflow: "hidden" }}>
           <Routes>
             <Route
               path="/"

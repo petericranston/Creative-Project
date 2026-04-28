@@ -68,8 +68,10 @@ app.get("/api/contributors", async (request, response) => {
 });
 
 app.get("/api/filesContent", async (request, response) => {
+  chosenRepo = request.query.repo;
+
   try {
-    const data = await github.repoContent(); //Getting the data from the github model
+    const data = await github.repoContent(chosenRepo); //Getting the data from the github model
     response.json(data); //Sending data to frontend
   } catch (error) {
     console.log(error);
