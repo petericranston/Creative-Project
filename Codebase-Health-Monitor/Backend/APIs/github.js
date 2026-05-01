@@ -131,9 +131,26 @@ async function getRepos() {
   }
 }
 
+async function getFileContent(chosenRepo, filePath) {
+  try {
+    const response = await octokit.rest.repos.getContent({
+      owner,
+      repo: chosenRepo,
+      path: filePath,
+    });
+
+    //Decodes from base64 sent from github
+    return Buffer.from(response.data.content, "base64").toString("utf8");
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
 module.exports = {
   overview,
   contributorData,
   repoContent,
   getRepos,
+  getFileContent,
 };

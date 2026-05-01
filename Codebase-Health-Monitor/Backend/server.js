@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv").config(); //Configuring my .env for secret keys (mongodb)
 
+const Anthropic = require("@anthropic-ai/sdk");
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
 const app = express();
 const github = require("./APIs/github");
 const analysis = require("./Models/analysis");
@@ -85,6 +88,57 @@ app.get("/api/getRepos", async (request, response) => {
     console.log(data);
   } catch (error) {
     console.log(error);
+  }
+});
+
+app.get("/api/analyseFile", async (request, response) => {
+  const { repo, path } = request.query;
+  try {
+    const fileContent = await github.getFileContent(repo, path);
+
+    const message = await anthropic.messages.create({
+      model: "claude-haiku-4-5",
+      max_tokens: 1024,
+      messages: [
+        {
+          role: "user",
+          content: `Here is a file that I would like you to analyze\n\n${fileContent}. Please only provide me with exactly what I ask for and no more.
+          Provide 3 main headings for the analysis. 
+          The first of which will be the overall score of the file (for code quality, syntax etc), please give a short explanation of why it is this score, 
+          no more than a few sentences. For the second heading I would also like a small deepdive into some of the issue with the file, whether thats errors that
+          might occur or code imperfections etc. I want the response to be clear but not excessive. Do not reference any line numbers. And for the third heading
+          I would like you to provide an overall analysis of the file, things that are good and bad. Please provide this in readable paragraphs,
+           not a "code response" but something someone will read and understand even if they didn't know how to code. Make it look as legible and
+           clean for the user as possible. Please return the data in this json format and do not wrap it in markdown code blocks:: 
+           {
+            "overallScore": <number between 0 and 100>,
+            "deepDive": "<detailed analysis of the code>",
+            "conclusion": "<brief summary and key recommendations>"
+          }
+           `,
+        },
+      ],
+    });
+
+    try {
+      const raw = message.content[0].text
+        .replace(/```json/g, "")
+        .replace(/```/g, "")
+        .trim();
+      const parsed = JSON.parse(raw);
+      response.json({ analysis: parsed });
+    } catch {
+      response.json({
+        analysis: {
+          overallScore: 0,
+          deepDive: message.content[0].text,
+          conclusion: "Could not parse response",
+        },
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    response.status(500).json({ error: "Analysis failed" });
   }
 });
 
