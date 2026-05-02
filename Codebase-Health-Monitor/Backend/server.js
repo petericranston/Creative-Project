@@ -28,10 +28,11 @@ app.get("/", (request, response) => {
 
 app.get("/api/overview", async (request, response) => {
   chosenRepo = request.query.repo;
+  username = request.query.username;
   console.log("overview called with repo:", chosenRepo);
 
   try {
-    const data = await github.overview(chosenRepo); //Getting the data from the github model
+    const data = await github.overview(chosenRepo, username); //Getting the data from the github model
     response.json(data); //Sending data to frontend
   } catch (error) {
     console.log(error);
@@ -40,11 +41,12 @@ app.get("/api/overview", async (request, response) => {
 
 app.get("/api/contributors", async (request, response) => {
   chosenRepo = request.query.repo;
+  username = request.query.username;
   console.log("contributors called with repo:", chosenRepo);
 
   try {
-    const data = await github.contributorData(chosenRepo); //Getting the data from the github model
-    const overviewData = await github.overview(chosenRepo);
+    const data = await github.contributorData(chosenRepo, username); //Getting the data from the github model
+    const overviewData = await github.overview(chosenRepo, username);
 
     const totalCommits = data.contributors.reduce(
       (sum, u) => sum + u.commits,
@@ -72,9 +74,10 @@ app.get("/api/contributors", async (request, response) => {
 
 app.get("/api/filesContent", async (request, response) => {
   chosenRepo = request.query.repo;
+  username = request.query.username;
 
   try {
-    const data = await github.repoContent(chosenRepo); //Getting the data from the github model
+    const data = await github.repoContent(chosenRepo, username); //Getting the data from the github model
     response.json(data); //Sending data to frontend
   } catch (error) {
     console.log(error);
@@ -82,8 +85,9 @@ app.get("/api/filesContent", async (request, response) => {
 });
 
 app.get("/api/getRepos", async (request, response) => {
+  username = request.query.username;
   try {
-    const data = await github.getRepos(); //Getting the data from the github model
+    const data = await github.getRepos(username); //Getting the data from the github model
     response.json(data); //Sending data to frontend
     console.log(data);
   } catch (error) {
@@ -92,9 +96,12 @@ app.get("/api/getRepos", async (request, response) => {
 });
 
 app.get("/api/analyseFile", async (request, response) => {
-  const { repo, path } = request.query;
+  chosenRepo = request.query.repo;
+  username = request.query.username;
+  path = request.query.path;
+
   try {
-    const fileContent = await github.getFileContent(repo, path);
+    const fileContent = await github.getFileContent(chosenRepo, path, username);
 
     const message = await anthropic.messages.create({
       model: "claude-haiku-4-5",

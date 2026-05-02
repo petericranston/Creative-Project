@@ -22,7 +22,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
   useEffect(() => {
     //Getting data from the backend
     const fetchContributors = async (repoName) => {
-      const response = await fetch(`/api/contributors?repo=${repoName}`, {
+      const response = await fetch(`/api/contributors?repo=${repoName}&username=${username}`, {
         credentials: "include",
       });
       const data = await response.json();

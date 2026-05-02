@@ -5,13 +5,11 @@ const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 });
 
-const owner = "petericranston";
-
-async function overview(chosenRepo) {
+async function overview(chosenRepo, username) {
   try {
     const response = await octokit.rest.repos.get({
       //Gets the repo overview from the github REST API
-      owner: owner,
+      owner: username,
       repo: chosenRepo,
     });
 
@@ -31,7 +29,7 @@ async function overview(chosenRepo) {
   }
 }
 
-async function contributorData(chosenRepo) {
+async function contributorData(chosenRepo, username) {
   try {
     const { repository } = await octokit.graphql(
       //Getting the data using graphQL (much more reliable than the github REST API Endpoints, essentially just asking for specific data and getting only that data)
@@ -56,7 +54,7 @@ async function contributorData(chosenRepo) {
         }
       }
     `,
-      { owner, repo: chosenRepo },
+      { owner: username, repo: chosenRepo },
     );
 
     const map = {};
@@ -92,10 +90,10 @@ async function contributorData(chosenRepo) {
   }
 }
 
-async function repoContent(chosenRepo) {
+async function repoContent(chosenRepo, username) {
   try {
     const response = await octokit.rest.git.getTree({
-      owner: owner,
+      owner: username,
       repo: chosenRepo,
       tree_sha: "main", // default branch name
       recursive: true, //Tells the api to return every file instead of just the top level contents (from the repo top folder)
@@ -113,11 +111,11 @@ async function repoContent(chosenRepo) {
   }
 }
 
-async function getRepos() {
+async function getRepos(username) {
   try {
     const response = await octokit.rest.repos.listForUser({
       //Getting data
-      username: owner,
+      username: username,
       sort: "updated",
     });
 
@@ -131,10 +129,10 @@ async function getRepos() {
   }
 }
 
-async function getFileContent(chosenRepo, filePath) {
+async function getFileContent(chosenRepo, filePath, username) {
   try {
     const response = await octokit.rest.repos.getContent({
-      owner,
+      owner: username,
       repo: chosenRepo,
       path: filePath,
     });

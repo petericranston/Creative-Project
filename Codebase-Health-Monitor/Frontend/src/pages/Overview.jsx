@@ -40,9 +40,12 @@ export default function Overview({ chosenRepo, setChosenRepo, username }) {
     //Getting data from the backend
 
     const fetchContributors = async (repoName) => {
-      const response = await fetch(`/api/contributors?repo=${repoName}`, {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `/api/contributors?repo=${repoName}&username=${username}`,
+        {
+          credentials: "include",
+        },
+      );
       const data = await response.json();
       setContributorData(data.contributors);
       setTimelineData(data.timeline);
@@ -51,15 +54,18 @@ export default function Overview({ chosenRepo, setChosenRepo, username }) {
     };
 
     const fetchOverview = async (repoName) => {
-      const response = await fetch(`/api/overview?repo=${repoName}`, {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `/api/overview?repo=${repoName}&username=${username}`,
+        {
+          credentials: "include",
+        },
+      );
       const data = await response.json();
       setOverviewData(data);
     };
 
     const getRepos = async () => {
-      const response = await fetch("/api/getRepos", {
+      const response = await fetch(`/api/getRepos?username=${username}`, {
         credentials: "include",
       });
       const data = await response.json();
@@ -71,7 +77,7 @@ export default function Overview({ chosenRepo, setChosenRepo, username }) {
       fetchOverview(chosenRepo.name);
     }
     getRepos();
-  }, [chosenRepo]);
+  }, [chosenRepo, username]);
 
   return (
     <div>

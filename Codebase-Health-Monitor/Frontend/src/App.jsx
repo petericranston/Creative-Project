@@ -32,7 +32,12 @@ function App() {
         <Navbar />
         <main style={{ flex: 1, padding: "2rem", overflow: "hidden" }}>
           <Routes>
-            <Route path="/settings" element={<Settings />} />
+            <Route
+              path="/settings"
+              element={
+                <Settings username={username} setUsername={setUsername} />
+              }
+            />
             <Route
               path="/"
               element={

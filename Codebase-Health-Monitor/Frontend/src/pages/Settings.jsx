@@ -1,9 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-export default function Settings() {
-  const [username, setUsername] = useState("");
-
-  function saveUsername(username) {}
+export default function Settings({ username, setUsername }) {
+  const [input, setInput] = useState(null);
 
   return (
     <div className="flex flex-col h-full">
@@ -11,13 +10,15 @@ export default function Settings() {
       <div className="bg-[#272953] rounded-lg p-6 flex flex-col gap-4 h-full">
         <input
           type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
           placeholder="Enter your GitHub username"
           className="w-full bg-[#1e2044] rounded-lg px-3 py-2 text-white outline-none text-center"
         />
         <button
-          onClick={saveUsername(username)}
+          onClick={() => {
+            (setUsername(input), setInput(""));
+          }}
           className="bg-[#1e2044] hover:bg-[#16113a] py-2 rounded-lg"
         >
           Save
