@@ -13,7 +13,13 @@ import {
   Legend,
 } from "recharts";
 
-export default function Overview({ chosenRepo, setChosenRepo, username }) {
+export default function Overview({
+  chosenRepo,
+  setChosenRepo,
+  username,
+  newUser,
+  setNewUser,
+}) {
   const [repos, setRepos] = useState([]);
   const [overviewData, setOverviewData] = useState([]);
   const [contributorData, setContributorData] = useState([]);
@@ -76,8 +82,13 @@ export default function Overview({ chosenRepo, setChosenRepo, username }) {
       fetchContributors(chosenRepo.name);
       fetchOverview(chosenRepo.name);
     }
+    if (newUser == true) {
+      setChosenRepo("");
+      setNewUser(false);
+    }
+
     getRepos();
-  }, [chosenRepo, username]);
+  }, [chosenRepo, username, newUser]);
 
   return (
     <div>

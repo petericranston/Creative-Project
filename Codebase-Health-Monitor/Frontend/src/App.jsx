@@ -21,6 +21,7 @@ function App() {
   const [repos, setRepos] = useState([]);
   const [chosenRepo, setChosenRepo] = useState(null);
   const [username, setUsername] = useState(null);
+  const [newUser, setNewUser] = useState(false);
 
   return (
     <div className="root">
@@ -35,7 +36,11 @@ function App() {
             <Route
               path="/settings"
               element={
-                <Settings username={username} setUsername={setUsername} />
+                <Settings
+                  username={username}
+                  setUsername={setUsername}
+                  setNewUser={setNewUser}
+                />
               }
             />
             <Route
@@ -45,6 +50,8 @@ function App() {
                   chosenRepo={chosenRepo}
                   setChosenRepo={setChosenRepo}
                   username={username}
+                  setNewUser={setNewUser}
+                  newUser={newUser}
                 />
               }
             />

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Settings({ username, setUsername }) {
+export default function Settings({ username, setUsername, setNewUser }) {
   const [input, setInput] = useState(null);
 
   return (
@@ -17,7 +17,7 @@ export default function Settings({ username, setUsername }) {
         />
         <button
           onClick={() => {
-            (setUsername(input), setInput(""));
+            (setUsername(input), setInput(""), setNewUser(true));
           }}
           className="bg-[#1e2044] hover:bg-[#16113a] py-2 rounded-lg"
         >
