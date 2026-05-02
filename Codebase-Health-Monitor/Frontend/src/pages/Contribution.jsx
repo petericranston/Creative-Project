@@ -22,9 +22,12 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
   useEffect(() => {
     //Getting data from the backend
     const fetchContributors = async (repoName) => {
-      const response = await fetch(`/api/contributors?repo=${repoName}&username=${username}`, {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `/api/contributors?repo=${repoName}&username=${username}`,
+        {
+          credentials: "include",
+        },
+      );
       const data = await response.json();
       setContributorData(data.contributors);
       console.log("contributors:", data);
@@ -33,7 +36,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
     if (chosenRepo) {
       fetchContributors(chosenRepo.name);
     }
-  }, [chosenRepo]);
+  }, [chosenRepo, username]);
 
   const COLOURS = ["#8884d8", "#82ca9d", "#ff7f7f", "#ffc658", "#a4de6c"];
   const topContributor = contributorData[0];

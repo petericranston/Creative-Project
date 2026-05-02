@@ -12,9 +12,12 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
     //Getting data from the backend
 
     const fetchFilesContent = async (repoName) => {
-      const response = await fetch(`/api/filesContent?repo=${repoName}&username=${username}`, {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `/api/filesContent?repo=${repoName}&username=${username}`,
+        {
+          credentials: "include",
+        },
+      );
       const data = await response.json();
       setFilesContent(data);
     };
@@ -22,7 +25,7 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
     if (chosenRepo) {
       fetchFilesContent(chosenRepo.name);
     }
-  }, [chosenRepo]);
+  }, [chosenRepo, username]);
 
   const analyseFile = async () => {
     setLoading(true);
