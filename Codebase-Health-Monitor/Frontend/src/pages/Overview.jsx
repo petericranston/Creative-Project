@@ -88,7 +88,7 @@ export default function Overview({
     }
 
     getRepos();
-  }, [chosenRepo, username, newUser]);
+  }, [chosenRepo, username, newUser, setChosenRepo, setNewUser]);
 
   return (
     <div>
