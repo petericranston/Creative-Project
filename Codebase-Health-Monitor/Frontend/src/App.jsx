@@ -15,6 +15,7 @@ import Overview from "./pages/overview";
 import Navbar from "./components/navbar";
 import Contribution from "./pages/Contribution";
 import Risk from "./pages/Risk";
+import Settings from "./pages/Settings";
 
 function App() {
   const [repos, setRepos] = useState([]);
@@ -30,6 +31,7 @@ function App() {
         <Navbar />
         <main style={{ flex: 1, padding: "2rem", overflow: "hidden" }}>
           <Routes>
+            <Route path="/settings" element={<Settings />} />
             <Route
               path="/"
               element={

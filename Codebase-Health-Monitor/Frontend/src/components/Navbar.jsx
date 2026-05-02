@@ -10,9 +10,12 @@ const links = [
 export default function Navbar() {
   return (
     <nav className="nav">
-      <button className="bg-[#16113a] hover:bg-[#1e1a4a] text-white font-medium text-xl py-2 px-3 rounded-lg mb-3">
+      <NavLink
+        to="/settings"
+        className="bg-[#16113a] hover:bg-[#1e1a4a] text-white font-medium text-xl py-2 px-3 rounded-lg mb-3 text-center"
+      >
         Settings
-      </button>
+      </NavLink>
       <ul className="links">
         {links.map((link) => (
           <li key={link.to}>
