@@ -4,7 +4,7 @@ import "../styles/navbar.css";
 const links = [
   { to: "/", label: "Overview" },
   { to: "/contribution", label: "Contribution" },
-  { to: "/risk", label: "Risk" },
+  { to: "/analysis", label: "Analysis" },
 ];
 
 export default function Navbar() {

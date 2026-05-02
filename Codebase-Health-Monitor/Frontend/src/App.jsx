@@ -14,12 +14,13 @@ import { Routes, Route } from "react-router-dom";
 import Overview from "./pages/overview";
 import Navbar from "./components/navbar";
 import Contribution from "./pages/Contribution";
-import Risk from "./pages/Risk";
+import Analysis from "./pages/Analysis";
 import Settings from "./pages/Settings";
 
 function App() {
   const [repos, setRepos] = useState([]);
   const [chosenRepo, setChosenRepo] = useState(null);
+  const [username, setUsername] = useState(null);
 
   return (
     <div className="root">
@@ -38,6 +39,7 @@ function App() {
                 <Overview
                   chosenRepo={chosenRepo}
                   setChosenRepo={setChosenRepo}
+                  username={username}
                 />
               }
             />
@@ -47,13 +49,18 @@ function App() {
                 <Contribution
                   chosenRepo={chosenRepo}
                   setChosenRepo={setChosenRepo}
+                  username={username}
                 />
               }
             />
             <Route
-              path="/risk"
+              path="/analysis"
               element={
-                <Risk chosenRepo={chosenRepo} setChosenRepo={setChosenRepo} />
+                <Analysis
+                  chosenRepo={chosenRepo}
+                  setChosenRepo={setChosenRepo}
+                  username={username}
+                />
               }
             />
           </Routes>

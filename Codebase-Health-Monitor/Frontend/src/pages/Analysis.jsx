@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/overview.css";
 
-export default function Risk({ chosenRepo, setChosenRepo }) {
+export default function Analysis({ chosenRepo, setChosenRepo, username }) {
   const [filesContent, setFilesContent] = useState([]);
   const [chosenFile, setChosenFile] = useState(null);
 

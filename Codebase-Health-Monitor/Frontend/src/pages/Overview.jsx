@@ -13,7 +13,7 @@ import {
   Legend,
 } from "recharts";
 
-export default function Overview({ chosenRepo, setChosenRepo }) {
+export default function Overview({ chosenRepo, setChosenRepo, username }) {
   const [repos, setRepos] = useState([]);
   const [overviewData, setOverviewData] = useState([]);
   const [contributorData, setContributorData] = useState([]);

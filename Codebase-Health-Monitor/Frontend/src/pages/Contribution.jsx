@@ -16,7 +16,7 @@ import {
   Cell,
 } from "recharts";
 
-export default function Contribution({ chosenRepo, setChosenRepo }) {
+export default function Contribution({ chosenRepo, setChosenRepo, username }) {
   const [contributorData, setContributorData] = useState([]);
 
   useEffect(() => {
