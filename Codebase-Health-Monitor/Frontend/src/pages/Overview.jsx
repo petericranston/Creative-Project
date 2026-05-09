@@ -147,8 +147,12 @@ export default function Overview({
           </div>
           <div className="bg-[#272953] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
             <p className="text-xl">Repo Name: {overviewData.name}</p>
-            <p className="text-xl">Created at: {overviewData.created_at}</p>
-            <p className="text-xl">Last Updated: {overviewData.updated_at}</p>
+            <p className="text-xl">
+              Created at: {overviewData.created_at?.slice(0, 10)}
+            </p>
+            <p className="text-xl">
+              Last Updated: {overviewData.updated_at?.slice(0, 10)}
+            </p>
             <p className="text-xl">
               Most prominent language: {overviewData.language}
             </p>
