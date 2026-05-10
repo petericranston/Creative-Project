@@ -19,7 +19,7 @@ export default function Settings({ username, setUsername, setNewUser }) {
           onClick={() => {
             (setUsername(input), setInput(""), setNewUser(true));
           }}
-          className="bg-[#1e2044] border border-[#3d4199] hover:bg-[#16113a] py-2 rounded-lg"
+          className="bg-[#1e2044] hover:bg-[#16113a] py-2 rounded-lg"
         >
           Save
         </button>
