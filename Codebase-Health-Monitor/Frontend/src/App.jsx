@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { Routes, Route } from "react-router-dom";
 import Overview from "./pages/Overview";
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 import Contribution from "./pages/Contribution";
 import Analysis from "./pages/Analysis";
 import Settings from "./pages/Settings";
