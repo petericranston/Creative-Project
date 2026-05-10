@@ -46,38 +46,61 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
       <div className="flex gap-4">
         <div className="bg-[#272953] border border-[#3d4199] w-[400px] h-[330px] flex rounded-lg items-center justify-center flex-col">
           <p className="text-base">Dominance Chart</p>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={contributorData}
-                dataKey="dominanceScore"
-                nameKey="username"
-                cx="50%"
-                cy="50%"
-                outerRadius={120}
-              >
-                {contributorData.map((entry, i) => (
-                  <Cell
-                    key={entry.username}
-                    fill={COLOURS[i % COLOURS.length]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
+          {contributorData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={contributorData}
+                  dataKey="dominanceScore"
+                  nameKey="username"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={120}
+                >
+                  {contributorData.map((entry, i) => (
+                    <Cell
+                      key={entry.username}
+                      fill={COLOURS[i % COLOURS.length]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-gray-400 text-sm">Select a repo to view data</p>
+          )}
         </div>
         <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
           <h2 className="text-4xl">Top Contributor</h2>
-          {topContributor && (
-            <div>
-              <p className="text-xl">{topContributor.username}</p>
-              <p>Dominance Score: {topContributor.dominanceScore}</p>
-              <p>Commits: {topContributor.commits}</p>
-              <p>Lines Added: {topContributor.additions}</p>
-              <p>Lines Removed: {topContributor.deletions}</p>
+          {topContributor ? (
+            <div className="flex flex-col mt-4">
+              <div className="flex gap-2">
+                <span className="text-gray-400">Username:</span>
+                <span>{topContributor.username}</span>
+              </div>
+              <div className="flex gap-2">
+                <span className="text-gray-400">Dominance Score:</span>
+                <span>{topContributor.dominanceScore}</span>
+              </div>
+              <div className="flex gap-2">
+                <span className="text-gray-400">Commits:</span>
+                <span>{topContributor.commits}</span>
+              </div>
+              <div className="flex gap-2">
+                <span className="text-gray-400">Lines Added:</span>
+                <span>{topContributor.additions}</span>
+              </div>
+              <div className="flex gap-2">
+                <span className="text-gray-400">Lines Removed:</span>
+                <span>{topContributor.deletions}</span>
+              </div>
             </div>
+          ) : (
+            <p className="text-gray-400 text-sm mt-4">
+              Select a repo to view data
+            </p>
           )}
         </div>
       </div>

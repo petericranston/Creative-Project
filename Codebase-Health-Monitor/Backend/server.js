@@ -96,14 +96,17 @@ app.get("/api/getRepos", async (request, response) => {
 });
 
 app.get("/api/analyseFile", async (request, response) => {
+  //File analysis
+  //Retrieving data
   chosenRepo = request.query.repo;
   username = request.query.username;
   path = request.query.path;
 
   try {
-    const fileContent = await github.getFileContent(chosenRepo, path, username);
+    const fileContent = await github.getFileContent(chosenRepo, path, username); //Getting file content from github
 
     const message = await anthropic.messages.create({
+      //Sending file content to Anthropic API (claude)
       model: "claude-haiku-4-5",
       max_tokens: 1024,
       messages: [
@@ -128,6 +131,7 @@ app.get("/api/analyseFile", async (request, response) => {
     });
 
     try {
+      //Retrieving data and making it parseable
       const raw = message.content[0].text
         .replace(/```json/g, "")
         .replace(/```/g, "")
@@ -136,6 +140,7 @@ app.get("/api/analyseFile", async (request, response) => {
       response.json({ analysis: parsed });
     } catch {
       response.json({
+        //Sending raw content if theres a parsing error
         analysis: {
           overallScore: 0,
           deepDive: message.content[0].text,

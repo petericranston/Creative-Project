@@ -130,6 +130,7 @@ async function getRepos(username) {
 }
 
 async function getFileContent(chosenRepo, filePath, username) {
+  //Getting file content for AI analysis
   try {
     const response = await octokit.rest.repos.getContent({
       owner: username,

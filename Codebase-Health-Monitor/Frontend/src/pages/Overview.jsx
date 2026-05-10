@@ -78,16 +78,18 @@ export default function Overview({
     };
 
     if (chosenRepo) {
+      //Asking for repo data once a repo has been chosen
       fetchContributors(chosenRepo.name);
       fetchOverview(chosenRepo.name);
     }
     if (newUser == true) {
+      //Resetting chosenRepo variable if the user signs in as a different github user
       setChosenRepo("");
       setNewUser(false);
     }
 
     getRepos();
-  }, [chosenRepo, username, newUser, setChosenRepo, setNewUser]);
+  }, [chosenRepo, username, newUser, setChosenRepo, setNewUser]); //Reruns the useEffect if any of these change
 
   return (
     <div>
@@ -96,9 +98,14 @@ export default function Overview({
         <div className="bg-[#272953] border border-[#3d4199] w-[300px] h-[300px] flex rounded-lg items-center justify-center">
           <div className="text-center p-4">
             <h2 className="text-2xl">Health Score</h2>
-            <p className="text-2xl">
-              {healthScore ? `${healthScore.overall}%` : "Select a repo"}
-            </p>
+            {healthScore ? (
+              <p className="text-2xl">{healthScore.overall}%</p>
+            ) : (
+              <p className="text-gray-400 text-sm">
+                Select a repo to view data
+              </p>
+            )}
+
             <button
               onClick={() => setShowHealthTips(!showHealthTips)}
               className="text-sm text-white hover:text-blue-300 mt-2"
@@ -106,7 +113,7 @@ export default function Overview({
               {showHealthTips ? "Hide ▲" : "Learn more ▼"}
             </button>
             {showHealthTips && (
-              <div className="text-sm mt-2 text-left space-y-1">
+              <div className="text-sm mt-2 text-left">
                 <p>
                   The health score is based on four calculations: How recently
                   you've committed, how even the workload is, how frequently you
@@ -145,22 +152,33 @@ export default function Overview({
             )}
           </div>
           <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
-            <div className="flex gap-2">
-              <span className="text-gray-400">Repo Name:</span>
-              <span>{overviewData.name}</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-gray-400">Created at:</span>
-              <span>{overviewData.created_at?.slice(0, 10)}</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-gray-400">Last Updated:</span>
-              <span>{overviewData.updated_at?.slice(0, 10)}</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-gray-400">Most prominent language:</span>
-              <span>{overviewData.language}</span>
-            </div>
+            {overviewData.name ? (
+              <>
+                <div className="flex gap-2">
+                  {/* Improving the styling by separating the label and content */}
+                  <span className="text-gray-400">Repo Name:</span>
+                  <span>{overviewData.name}</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-gray-400">Created at:</span>
+                  <span>{overviewData.created_at?.slice(0, 10)}</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-gray-400">Last Updated:</span>
+                  <span>{overviewData.updated_at?.slice(0, 10)}</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-gray-400">
+                    Most prominent language:
+                  </span>
+                  <span>{overviewData.language}</span>
+                </div>
+              </>
+            ) : (
+              <p className="text-gray-400 text-sm">
+                Select a repo to view data
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -178,6 +196,7 @@ export default function Overview({
           ) : (
             <p className="text-gray-400 text-sm">Select a repo to view data</p>
           )}
+          {/* Default content if no data is available */}
         </div>
         <div className="bg-[#272953] border border-[#3d4199] w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
           <p className="text-base">Contributions Over Time</p>
