@@ -77,9 +77,9 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
       </h2>
       <div className="flex gap-4 flex-1 overflow-hidden">
         <div className="bg-[#272953] border border-[#3d4199] rounded-lg w-1/3 flex flex-col">
+          <h3 className="p-4">All Your Files</h3>
           {chosenRepo ? (
             <>
-              <h3 className="p-4">All Your Files</h3>
               <div className="overflow-y-auto flex-1">
                 {filteredFiles &&
                   filteredFiles.map((file, index) => (
