@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://frontend-production-6574.up.railway.app",
+    origin: "https://frontend-production-8627.up.railway.app",
     credentials: true,
   }),
 );
