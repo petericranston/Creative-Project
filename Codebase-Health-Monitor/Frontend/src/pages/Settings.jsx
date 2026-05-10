@@ -7,7 +7,7 @@ export default function Settings({ username, setUsername, setNewUser }) {
   return (
     <div className="flex flex-col h-full">
       <h2 className="text-2xl font-semibold pb-10">Settings</h2>
-      <div className="bg-[#272953] rounded-lg p-6 flex flex-col gap-4 h-full">
+      <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-6 flex flex-col gap-4 h-full">
         <input
           type="text"
           value={input}

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "../styles/overview.css";
 
 import {
   BarChart,
@@ -94,11 +93,11 @@ export default function Overview({
     <div>
       <h2 className="text-2xl font-semibold pb-10">Overview</h2>
       <div className="flex gap-4">
-        <div className="bg-[#272953] w-[300px] h-[300px] flex rounded-lg items-center justify-center">
+        <div className="bg-[#272953] border border-[#3d4199] w-[300px] h-[300px] flex rounded-lg items-center justify-center">
           <div className="text-center p-4">
             <h2 className="text-2xl">Health Score</h2>
             <p className="text-2xl">
-              {healthScore ? `${healthScore.overall}%` : "—"}
+              {healthScore ? `${healthScore.overall}%` : "Select a repo"}
             </p>
             <button
               onClick={() => setShowHealthTips(!showHealthTips)}
@@ -119,7 +118,7 @@ export default function Overview({
           </div>
         </div>
         <div className="flex flex-col gap-4 flex-1 h-[300px]">
-          <div className="bg-[#272953] rounded-lg p-3 text-white text-sm relative flex items-center justify-center">
+          <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-3 text-white text-sm relative flex items-center justify-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="flex items-center gap-2"
@@ -129,7 +128,7 @@ export default function Overview({
             </button>
 
             {isOpen && (
-              <div className="absolute top-full left-0 mt-1 w-full bg-[#272953] rounded-lg shadow-lg z-10 max-h-[200px] overflow-y-auto">
+              <div className="absolute top-full left-0 mt-1 w-full bg-[#272953] border border-[#3d4199] rounded-lg shadow-lg z-10 max-h-[200px] overflow-y-auto">
                 {repos.map((repo, index) => (
                   <div
                     key={index}
@@ -145,50 +144,64 @@ export default function Overview({
               </div>
             )}
           </div>
-          <div className="bg-[#272953] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
-            <p className="text-xl">Repo Name: {overviewData.name}</p>
-            <p className="text-xl">
-              Created at: {overviewData.created_at?.slice(0, 10)}
-            </p>
-            <p className="text-xl">
-              Last Updated: {overviewData.updated_at?.slice(0, 10)}
-            </p>
-            <p className="text-xl">
-              Most prominent language: {overviewData.language}
-            </p>
+          <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
+            <div className="flex gap-2">
+              <span className="text-gray-400">Repo Name:</span>
+              <span>{overviewData.name}</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-gray-400">Created at:</span>
+              <span>{overviewData.created_at?.slice(0, 10)}</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-gray-400">Last Updated:</span>
+              <span>{overviewData.updated_at?.slice(0, 10)}</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-gray-400">Most prominent language:</span>
+              <span>{overviewData.language}</span>
+            </div>
           </div>
         </div>
       </div>
       <div className="flex gap-4">
-        <div className="bg-[#272953] w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
+        <div className="bg-[#272953] border border-[#3d4199] w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
           <p className="text-base">Commits per Contributor</p>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={contributorData}>
-              <XAxis dataKey="username" />
-              <YAxis />
-              <Bar dataKey="commits" />
-            </BarChart>
-          </ResponsiveContainer>
+          {contributorData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={contributorData}>
+                <XAxis dataKey="username" />
+                <YAxis />
+                <Bar dataKey="commits" />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-gray-400 text-sm">Select a repo to view data</p>
+          )}
         </div>
-        <div className="bg-[#272953] w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
+        <div className="bg-[#272953] border border-[#3d4199] w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
           <p className="text-base">Contributions Over Time</p>
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={timelineData}>
-              <XAxis dataKey="day" interval="preserveStartEnd" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              {contributors.map((name, i) => (
-                <Line
-                  key={name}
-                  type="monotone"
-                  dataKey={name}
-                  stroke={COLOURS[i % COLOURS.length]}
-                  dot={false}
-                />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
+          {contributorData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={timelineData}>
+                <XAxis dataKey="day" interval="preserveStartEnd" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {contributors.map((name, i) => (
+                  <Line
+                    key={name}
+                    type="monotone"
+                    dataKey={name}
+                    stroke={COLOURS[i % COLOURS.length]}
+                    dot={false}
+                  />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-gray-400 text-sm">Select a repo to view data</p>
+          )}
         </div>
       </div>
     </div>

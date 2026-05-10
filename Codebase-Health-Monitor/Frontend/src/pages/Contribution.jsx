@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "../styles/overview.css";
 
 import {
   BarChart,
@@ -45,7 +44,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
     <div>
       <h2 className="text-2xl font-semibold pb-10">Contribution</h2>
       <div className="flex gap-4">
-        <div className="bg-[#272953] w-[400px] h-[330px] flex rounded-lg items-center justify-center flex-col">
+        <div className="bg-[#272953] border border-[#3d4199] w-[400px] h-[330px] flex rounded-lg items-center justify-center flex-col">
           <p className="text-base">Dominance Chart</p>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -69,7 +68,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
             </PieChart>
           </ResponsiveContainer>
         </div>
-        <div className="bg-[#272953] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
+        <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
           <h2 className="text-4xl">Top Contributor</h2>
           {topContributor && (
             <div>
@@ -83,7 +82,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
         </div>
       </div>
       <div className="flex gap-4 mt-4">
-        <div className="bg-[#272953] w-[400px] h-[350px] flex rounded-lg items-center justify-center overflow-hidden flex-col">
+        <div className="bg-[#272953] border border-[#3d4199] w-[400px] h-[350px] flex rounded-lg items-center justify-center overflow-hidden flex-col">
           <p className="text-base">Commits per Contributor</p>
           <div className="overflow-y-auto w-full h-full rounded-lg p-4 text-white flex flex-1 items-center flex-col">
             {contributorData.map((contributor, i) => (
@@ -103,7 +102,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
             ))}
           </div>
         </div>
-        <div className="bg-[#272953] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center h-[350px] overflow-hidden">
+        <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center h-[350px] overflow-hidden">
           <p className="text-base">Lines Added/Removed per Contributor</p>
           <div className="overflow-y-auto w-full h-full flex flex-col flex-1 items-center">
             {contributorData.map((contributor, i) => (
