@@ -77,22 +77,30 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
       </h2>
       <div className="flex gap-4 flex-1 overflow-hidden">
         <div className="bg-[#272953] border border-[#3d4199] rounded-lg w-1/3 flex flex-col">
-          <h3 className="p-4">All Your Files</h3>
-          <div className="overflow-y-auto flex-1">
-            {filteredFiles &&
-              filteredFiles.map((file, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setChosenFile(file);
-                    setAnalysis(null);
-                  }}
-                  className={`w-full text-left px-4 py-1 hover:bg-[#1e2044]`}
-                >
-                  {file.name}
-                </button>
-              ))}
-          </div>
+          {chosenRepo ? (
+            <>
+              <h3 className="p-4">All Your Files</h3>
+              <div className="overflow-y-auto flex-1">
+                {filteredFiles &&
+                  filteredFiles.map((file, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setChosenFile(file);
+                        setAnalysis(null);
+                      }}
+                      className={`w-full text-left px-4 py-1 hover:bg-[#1e2044]`}
+                    >
+                      {file.name}
+                    </button>
+                  ))}
+              </div>
+            </>
+          ) : (
+            <p className="text-gray-400 text-sm mt-4">
+              Select a repo to view data
+            </p>
+          )}
         </div>
 
         <div className="bg-[#272953] border border-[#3d4199] rounded-lg flex-1 flex flex-col overflow-hidden">
