@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://frontend-production-8627.up.railway.app",
+    origin: "http://localhost:5173",
     credentials: true,
   }),
 );
@@ -159,6 +159,6 @@ app.get("/api/analyseFile", async (request, response) => {
   }
 });
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(3000, () => {
   console.log("Server running on port http://localhost:3000/");
 });

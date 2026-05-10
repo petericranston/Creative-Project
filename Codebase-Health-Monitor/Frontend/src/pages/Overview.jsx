@@ -46,7 +46,7 @@ export default function Overview({
 
     const fetchContributors = async (repoName) => {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/contributors?repo=${repoName}&username=${username}`,
+        `/api/contributors?repo=${repoName}&username=${username}`,
         {
           credentials: "include",
         },
@@ -60,7 +60,7 @@ export default function Overview({
 
     const fetchOverview = async (repoName) => {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/overview?repo=${repoName}&username=${username}`,
+        `/api/overview?repo=${repoName}&username=${username}`,
         {
           credentials: "include",
         },
@@ -70,12 +70,9 @@ export default function Overview({
     };
 
     const getRepos = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/getRepos?username=${username}`,
-        {
-          credentials: "include",
-        },
-      );
+      const response = await fetch(`/api/getRepos?username=${username}`, {
+        credentials: "include",
+      });
       const data = await response.json();
       setRepos(data);
     };

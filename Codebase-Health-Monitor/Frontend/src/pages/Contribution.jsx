@@ -22,7 +22,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
     //Getting data from the backend
     const fetchContributors = async (repoName) => {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/contributors?repo=${repoName}&username=${username}`,
+        `/api/contributors?repo=${repoName}&username=${username}`,
         {
           credentials: "include",
         },
@@ -136,34 +136,27 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
         <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center h-[350px] overflow-hidden">
           <p className="text-base">Lines Added/Removed per Contributor</p>
           <div className="overflow-y-auto w-full h-full flex flex-col flex-1 items-center">
-            {contributorData.length > 0 ? (
-              <>
-                {contributorData.map((contributor, i) => (
-                  <div
-                    key={contributor.username}
-                    className="flex items-center gap-2 py-2"
-                  >
-                    <div
-                      style={{ background: COLOURS[i % COLOURS.length] }}
-                      className="w-3 h-3 rounded-full"
-                    />
-                    <div>
-                      <p className="font-semibold">{contributor.username}</p>
-                      <p className="text-sm">
-                        {contributor.additions} Lines Added
-                      </p>
-                      <p className="text-sm">
-                        {contributor.deletions} Lines Removed
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <p className="text-gray-400 text-sm mt-4">
+            {contributorData.length > 0 ? (<>{contributorData.map((contributor, i) => (
+              <div
+                key={contributor.username}
+                className="flex items-center gap-2 py-2"
+              >
+                <div
+                  style={{ background: COLOURS[i % COLOURS.length] }}
+                  className="w-3 h-3 rounded-full"
+                />
+                <div>
+                  <p className="font-semibold">{contributor.username}</p>
+                  <p className="text-sm">{contributor.additions} Lines Added</p>
+                  <p className="text-sm">
+                    {contributor.deletions} Lines Removed
+                  </p>
+                </div>
+              </div>
+            ))}</>) : (<p className="text-gray-400 text-sm mt-4">
                 Select a repo to view data
-              </p>
-            )}
+              </p>)}
+            
           </div>
         </div>
       </div>
