@@ -114,8 +114,13 @@ app.get("/api/analyseFile", async (request, response) => {
           role: "user",
           content: `Here is a file that I would like you to analyze\n\n${fileContent}. Please only provide me with exactly what I ask for and no more.
           Provide 3 main headings for the analysis. 
-          The first of which will be the overall score of the file (for code quality, syntax etc), please give a short explanation of why it is this score, 
-          no more than a few sentences. For the second heading I would also like a small deepdive into some of the issue with the file, whether thats errors that
+          The first of which will be the overall score of the file on a scale of 0-100, where:
+          - 0-40: poor quality, many errors or bad practices
+          - 41-70: average quality, some issues but functional
+          - 71-85: good quality, minor issues only
+          - 86-100: excellent quality, clean and well structured code
+          Be strict and accurate with your scoring, do not default to a middle score. Please give a short explanation of why it is this score, 
+          no more than a few sentences (in the conclusion section). For the second heading I would also like a small deepdive into some of the issue with the file, whether thats errors that
           might occur or code imperfections etc. I want the response to be clear but not excessive. Do not reference any line numbers. And for the third heading
           I would like you to provide an overall analysis of the file, things that are good and bad. Please provide this in readable paragraphs,
            not a "code response" but something someone will read and understand even if they didn't know how to code. Make it look as legible and
