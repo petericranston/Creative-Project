@@ -12,7 +12,7 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
 
     const fetchFilesContent = async (repoName) => {
       const response = await fetch(
-        `/api/filesContent?repo=${repoName}&username=${username}`,
+        `${import.meta.env.VITE_API_URL}/api/filesContent?repo=${repoName}&username=${username}`,
         {
           credentials: "include",
         },
@@ -30,7 +30,7 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
     setLoading(true);
     try {
       const response = await fetch(
-        `/api/analyseFile?repo=${chosenRepo.name}&username=${username}&path=${chosenFile.path}`,
+        `${import.meta.env.VITE_API_URL}/api/analyseFile?repo=${chosenRepo.name}&username=${username}&path=${chosenFile.path}`,
         {
           credentials: "include",
         },
