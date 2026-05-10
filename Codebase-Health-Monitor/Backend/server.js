@@ -92,6 +92,7 @@ app.get("/api/getRepos", async (request, response) => {
     console.log(data);
   } catch (error) {
     console.log(error);
+    response.status(404).json([]);
   }
 });
 
