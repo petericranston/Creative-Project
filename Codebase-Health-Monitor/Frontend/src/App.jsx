@@ -28,7 +28,10 @@ function App() {
   return (
     <div className="root">
       <header>
-        <h1 className="flex ">GitVitals</h1>
+        <h1 className="flex ">
+          <span>Git</span>
+          <span className="text-[#a78bfa]">Vitals</span>
+        </h1>
       </header>
 
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
