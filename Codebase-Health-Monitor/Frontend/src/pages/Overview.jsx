@@ -98,12 +98,11 @@ export default function Overview({
       <div className="flex gap-4">
         <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-[300px] h-[300px] flex rounded-lg items-center justify-center">
           <div className="text-center p-4">
-            <h2 className="text-2xl">Health Score</h2>
             {healthScore ? (
               <div
                 style={{
-                  width: "80px",
-                  height: "80px",
+                  width: "100px",
+                  height: "100px",
                   borderRadius: "50%",
                   border: "4px solid #8b5cf6",
                   boxShadow: "0 0 20px rgba(139,92,246,0.3)",
@@ -119,9 +118,12 @@ export default function Overview({
                 {healthScore.overall}%
               </div>
             ) : (
-              <p className="text-gray-400 text-sm">
-                Select a repo to view data
-              </p>
+              <div>
+                <h2 className="text-2xl">Health Score</h2>
+                <p className="text-gray-400 text-sm">
+                  Select a repo to view data
+                </p>
+              </div>
             )}
 
             <button
