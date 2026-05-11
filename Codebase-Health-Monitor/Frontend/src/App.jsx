@@ -40,6 +40,7 @@ function App() {
                   username={username}
                   setUsername={setUsername}
                   setNewUser={setNewUser}
+                  setChosenRepo={setChosenRepo}
                 />
               }
             />
