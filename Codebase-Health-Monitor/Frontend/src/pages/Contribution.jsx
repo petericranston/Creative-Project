@@ -44,7 +44,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
     <div>
       <h2 className="text-2xl font-semibold pb-10">Contribution</h2>
       <div className="flex gap-4">
-        <div className="bg-[#272953] border border-[#3d4199] w-[400px] h-[330px] flex rounded-lg items-center justify-center flex-col">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-[400px] h-[330px] flex rounded-lg items-center justify-center flex-col">
           <p className="text-base">Dominance Chart</p>
           {contributorData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -72,7 +72,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
             <p className="text-gray-400 text-sm">Select a repo to view data</p>
           )}
         </div>
-        <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
           <h2 className="text-4xl">Top Contributor</h2>
           {topContributor ? (
             <div className="flex flex-col mt-4">
@@ -105,7 +105,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
         </div>
       </div>
       <div className="flex gap-4 mt-4">
-        <div className="bg-[#272953] border border-[#3d4199] w-[400px] h-[350px] flex rounded-lg items-center justify-center overflow-hidden flex-col">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-[400px] h-[350px] flex rounded-lg items-center justify-center overflow-hidden flex-col">
           <p className="text-base">Commits per Contributor</p>
           <div className="overflow-y-auto w-full h-full rounded-lg p-4 text-white flex flex-1 items-center flex-col">
             {contributorData.length > 0 ? (
@@ -133,30 +133,37 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
             )}
           </div>
         </div>
-        <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center h-[350px] overflow-hidden">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center h-[350px] overflow-hidden">
           <p className="text-base">Lines Added/Removed per Contributor</p>
           <div className="overflow-y-auto w-full h-full flex flex-col flex-1 items-center">
-            {contributorData.length > 0 ? (<>{contributorData.map((contributor, i) => (
-              <div
-                key={contributor.username}
-                className="flex items-center gap-2 py-2"
-              >
-                <div
-                  style={{ background: COLOURS[i % COLOURS.length] }}
-                  className="w-3 h-3 rounded-full"
-                />
-                <div>
-                  <p className="font-semibold">{contributor.username}</p>
-                  <p className="text-sm">{contributor.additions} Lines Added</p>
-                  <p className="text-sm">
-                    {contributor.deletions} Lines Removed
-                  </p>
-                </div>
-              </div>
-            ))}</>) : (<p className="text-gray-400 text-sm mt-4">
+            {contributorData.length > 0 ? (
+              <>
+                {contributorData.map((contributor, i) => (
+                  <div
+                    key={contributor.username}
+                    className="flex items-center gap-2 py-2"
+                  >
+                    <div
+                      style={{ background: COLOURS[i % COLOURS.length] }}
+                      className="w-3 h-3 rounded-full"
+                    />
+                    <div>
+                      <p className="font-semibold">{contributor.username}</p>
+                      <p className="text-sm">
+                        {contributor.additions} Lines Added
+                      </p>
+                      <p className="text-sm">
+                        {contributor.deletions} Lines Removed
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <p className="text-gray-400 text-sm mt-4">
                 Select a repo to view data
-              </p>)}
-            
+              </p>
+            )}
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ import {
   LineChart,
   Line,
   Legend,
+  Cell,
 } from "recharts";
 
 export default function Overview({
@@ -95,7 +96,7 @@ export default function Overview({
     <div>
       <h2 className="text-2xl font-semibold pb-10">Overview</h2>
       <div className="flex gap-4">
-        <div className="bg-[#272953] border border-[#3d4199] w-[300px] h-[300px] flex rounded-lg items-center justify-center">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-[300px] h-[300px] flex rounded-lg items-center justify-center">
           <div className="text-center p-4">
             <h2 className="text-2xl">Health Score</h2>
             {healthScore ? (
@@ -125,7 +126,7 @@ export default function Overview({
           </div>
         </div>
         <div className="flex flex-col gap-4 flex-1 h-[300px]">
-          <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-3 text-white text-sm relative flex items-center justify-center">
+          <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg p-3 text-white text-sm relative flex items-center justify-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="flex items-center gap-2"
@@ -135,7 +136,7 @@ export default function Overview({
             </button>
 
             {isOpen && (
-              <div className="absolute top-full left-0 mt-1 w-full bg-[#272953] border border-[#3d4199] rounded-lg shadow-lg z-10 max-h-[200px] overflow-y-auto">
+              <div className="absolute top-full left-0 mt-1 w-full bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg shadow-lg z-10 max-h-[200px] overflow-y-auto">
                 {repos.map((repo, index) => (
                   <div
                     key={index}
@@ -151,7 +152,7 @@ export default function Overview({
               </div>
             )}
           </div>
-          <div className="bg-[#272953] border border-[#3d4199] rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
+          <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
             {overviewData.name ? (
               <>
                 <div className="flex gap-2">
@@ -183,14 +184,21 @@ export default function Overview({
         </div>
       </div>
       <div className="flex gap-4">
-        <div className="bg-[#272953] border border-[#3d4199] w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
           <p className="text-base">Commits per Contributor</p>
           {contributorData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={contributorData}>
                 <XAxis dataKey="username" />
                 <YAxis />
-                <Bar dataKey="commits" />
+                <Bar dataKey="commits">
+                  {contributorData.map((entry, i) => (
+                    <Cell
+                      key={entry.username}
+                      fill={COLOURS[i % COLOURS.length]}
+                    />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -198,7 +206,7 @@ export default function Overview({
           )}
           {/* Default content if no data is available */}
         </div>
-        <div className="bg-[#272953] border border-[#3d4199] w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
           <p className="text-base">Contributions Over Time</p>
           {contributorData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">

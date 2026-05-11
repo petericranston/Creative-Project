@@ -38,14 +38,15 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #16113a;
+  background-color: #111827;
 }
 
 h1 {
   font-size: 56px;
   padding: 40px;
   margin: 0;
-  background-color: #272953;
+  background: linear-gradient(135deg, #111827, #1f2937);
   font-weight: 500;
   color: white;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.3);
 }

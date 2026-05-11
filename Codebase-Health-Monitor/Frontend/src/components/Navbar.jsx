@@ -12,7 +12,7 @@ export default function Navbar() {
     <nav className="nav">
       <NavLink
         to="/settings"
-        className="bg-[#16113a] border border-[#3d4199] hover:bg-[#1e1a4a] text-white font-medium text-xl py-2 px-3 rounded-lg mb-3 text-center"
+        className="bg-[#1f2937] hover:shadow-[0_0_12px_rgba(139,92,246,0.4)] text-white font-medium text-xl py-2 px-3 rounded-lg mb-3 text-center"
       >
         Settings
       </NavLink>

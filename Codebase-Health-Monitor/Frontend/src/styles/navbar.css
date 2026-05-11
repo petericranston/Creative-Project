@@ -4,8 +4,9 @@
   width: 14%;
   height: 100%;
   padding: 2rem 1rem;
-  background: #272953;
+  background: linear-gradient(180deg, #111827, #1f2937);
   box-sizing: border-box;
+  border-right: 1px solid rgba(139, 92, 246, 0.2);
 }
 
 .links {
@@ -28,13 +29,19 @@
   font-weight: 500;
   padding: 8px 12px;
   border-radius: 8px;
-  background-color: #16113a;
+  background-color: #1f2937;
   height: 23vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid rgba(139, 92, 246, 0.15);
 }
 
 .link:hover {
-  background: #1c1645;
+  background: #1f2937;
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+}
+
+.link.active {
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
 }

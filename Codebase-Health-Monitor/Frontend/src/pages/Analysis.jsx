@@ -77,7 +77,7 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
         Select a file for analysis
       </h2>
       <div className="flex gap-4 flex-1 overflow-hidden">
-        <div className="bg-[#272953] border border-[#3d4199] rounded-lg w-1/3 flex flex-col">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg w-1/3 flex flex-col">
           <h3 className="p-4">All Your Files</h3>
           {chosenRepo ? (
             <>
@@ -104,7 +104,7 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
           )}
         </div>
 
-        <div className="bg-[#272953] border border-[#3d4199] rounded-lg flex-1 flex flex-col overflow-hidden">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg flex-1 flex flex-col overflow-hidden">
           <div className="p-4 flex flex-col flex-1 overflow-y-auto">
             {chosenFile ? (
               <>
