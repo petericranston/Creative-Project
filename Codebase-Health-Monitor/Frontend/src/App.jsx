@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="root">
       <header>
-        <h1>Codebase Health Monitor</h1>
+        <h1 className="flex ">GitVitals</h1>
       </header>
 
       <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>

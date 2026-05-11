@@ -59,6 +59,7 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
     ".md",
     ".DS_Store",
     ".xd",
+    ".pdf",
   ];
   const paths = [".github", ".gitignore", ".gitattributes", "node_modules"];
 
