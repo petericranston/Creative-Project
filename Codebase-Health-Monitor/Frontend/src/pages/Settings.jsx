@@ -18,6 +18,7 @@ export default function Settings({
         setUsername(input);
         setChosenRepo(null);
         setNewUser(true);
+        localStorage.setItem("username", input);
         setUserStatus("Success");
       } else {
         setUserStatus("Error");

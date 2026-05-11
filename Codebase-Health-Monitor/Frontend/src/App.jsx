@@ -20,7 +20,9 @@ import Settings from "./pages/Settings";
 function App() {
   const [repos, setRepos] = useState([]);
   const [chosenRepo, setChosenRepo] = useState(null);
-  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || null,
+  );
   const [newUser, setNewUser] = useState(false);
 
   return (
