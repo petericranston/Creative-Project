@@ -100,7 +100,24 @@ export default function Overview({
           <div className="text-center p-4">
             <h2 className="text-2xl">Health Score</h2>
             {healthScore ? (
-              <p className="text-2xl">{healthScore.overall}%</p>
+              <div
+                style={{
+                  width: "80px",
+                  height: "80px",
+                  borderRadius: "50%",
+                  border: "4px solid #8b5cf6",
+                  boxShadow: "0 0 20px rgba(139,92,246,0.3)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.5rem",
+                  fontWeight: "700",
+                  color: "#c4b5fd",
+                  margin: "0 auto",
+                }}
+              >
+                {healthScore.overall}%
+              </div>
             ) : (
               <p className="text-gray-400 text-sm">
                 Select a repo to view data
