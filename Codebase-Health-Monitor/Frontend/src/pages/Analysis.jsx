@@ -27,6 +27,7 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
   }, [chosenRepo, username]);
 
   const analyseFile = async () => {
+    //Sending the username and chosen file path to the server for analysis
     setLoading(true);
     try {
       const response = await fetch(
@@ -64,6 +65,7 @@ export default function Analysis({ chosenRepo, setChosenRepo, username }) {
   const paths = [".github", ".gitignore", ".gitattributes", "node_modules"];
 
   const filteredFiles = filesContent.filter((file) => {
+    //Filtering the files
     const hasIgnoredExtension = extensions.some((ext) =>
       file.name.endsWith(ext),
     );

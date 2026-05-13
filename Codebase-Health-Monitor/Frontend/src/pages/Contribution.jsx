@@ -37,8 +37,8 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
     }
   }, [chosenRepo, username]);
 
-  const COLOURS = ["#8884d8", "#82ca9d", "#ff7f7f", "#ffc658", "#a4de6c"];
-  const topContributor = contributorData[0];
+  const COLOURS = ["#8884d8", "#82ca9d", "#ff7f7f", "#ffc658", "#a4de6c"]; //Colours for graphs and Text
+  const topContributor = contributorData[0]; //Setting the top contributor by the pre-ordered contributor data
 
   return (
     <div>

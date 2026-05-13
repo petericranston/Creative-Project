@@ -62,7 +62,7 @@ async function contributorData(chosenRepo, username) {
 
     for (const { author, additions, deletions, committedDate } of repository
       .defaultBranchRef.target.history.nodes) {
-      const username = author?.user?.login; //Checking that there is a username
+      const username = author?.user?.login; //Setting username if it exists
       if (!username) continue;
 
       const day = committedDate.slice(0, 10); //Organizing data into days
@@ -112,6 +112,7 @@ async function repoContent(chosenRepo, username) {
 }
 
 async function getRepos(username) {
+  //Getting the repos based on the username given
   try {
     const response = await octokit.rest.repos.listForUser({
       //Getting data

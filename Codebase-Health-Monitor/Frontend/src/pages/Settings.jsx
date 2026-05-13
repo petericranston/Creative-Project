@@ -11,6 +11,7 @@ export default function Settings({
   const [userStatus, setUserStatus] = useState(null);
 
   const saveUsername = async () => {
+    //Checking if the github username exists and saving it if so
     try {
       const response = await fetch(`/api/getRepos?username=${input}`);
       const data = await response.json();
@@ -21,7 +22,7 @@ export default function Settings({
         localStorage.setItem("username", input);
         setUserStatus("Success");
       } else {
-        setUserStatus("Error");
+        setUserStatus("Error"); //Tells the user that the account doesn't exist if there isn't a match with a github username
       }
     } catch {
       setUserStatus("Error");
