@@ -20,6 +20,7 @@ export default function Overview({
   newUser,
   setNewUser,
 }) {
+  //Usestate variables
   const [repos, setRepos] = useState([]);
   const [overviewData, setOverviewData] = useState([]);
   const [contributorData, setContributorData] = useState([]);
@@ -211,6 +212,7 @@ export default function Overview({
                 <XAxis dataKey="username" />
                 <YAxis />
                 <Bar dataKey="commits">
+                  {/* Adding colour coding to the graphs */}
                   {contributorData.map((entry, i) => (
                     <Cell
                       key={entry.username}
