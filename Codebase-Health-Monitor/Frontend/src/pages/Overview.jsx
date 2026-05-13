@@ -47,6 +47,7 @@ export default function Overview({
     //Getting data from the backend
 
     const fetchContributors = async (repoName) => {
+      //Getting contributor data
       const response = await fetch(
         `/api/contributors?repo=${repoName}&username=${username}`,
         {
@@ -61,6 +62,7 @@ export default function Overview({
     };
 
     const fetchOverview = async (repoName) => {
+      //Getting overview data
       const response = await fetch(
         `/api/overview?repo=${repoName}&username=${username}`,
         {
@@ -72,6 +74,7 @@ export default function Overview({
     };
 
     const getRepos = async () => {
+      //Getting the repos to be chosen from
       const response = await fetch(`/api/getRepos?username=${username}`, {
         credentials: "include",
       });
