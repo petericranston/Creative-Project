@@ -34,7 +34,7 @@ function App() {
         </h1>
       </header>
 
-      <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
+      <div style={{ display: "flex", flex: 1, overflow: "auto" }}>
         <Navbar />
         <main style={{ flex: 1, padding: "2rem", overflow: "hidden" }}>
           <Routes>
