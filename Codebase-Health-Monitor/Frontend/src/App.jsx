@@ -34,9 +34,9 @@ function App() {
         </h1>
       </header>
 
-      <div style={{ display: "flex", flex: 1, overflow: "auto" }}>
+      <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
         <Navbar />
-        <main style={{ flex: 1, padding: "2rem", overflow: "hidden" }}>
+        <main style={{ flex: 1, padding: "2rem", overflow: "auto" }}>
           <Routes>
             <Route
               path="/settings"
