@@ -22,7 +22,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
     //Getting data from the backend
     const fetchContributors = async (repoName) => {
       const response = await fetch(
-        `/api/contributors?repo=${repoName}&username=${username}`,
+        `${import.meta.env.VITE_API_URL}/api/contributors?repo=${repoName}&username=${username}`,
         {
           credentials: "include",
         },

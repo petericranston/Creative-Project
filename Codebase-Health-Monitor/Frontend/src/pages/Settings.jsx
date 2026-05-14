@@ -13,7 +13,9 @@ export default function Settings({
   const saveUsername = async () => {
     //Checking if the github username exists and saving it if so
     try {
-      const response = await fetch(`/api/getRepos?username=${input}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/getRepos?username=${input}`,
+      );
       const data = await response.json();
       if (data && data.length > 0) {
         setUsername(input);
