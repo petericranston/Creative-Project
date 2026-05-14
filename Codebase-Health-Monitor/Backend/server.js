@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "*",
     credentials: true,
   }),
 );
@@ -160,6 +160,6 @@ app.get("/api/analyseFile", async (request, response) => {
   }
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Server running on port http://localhost:3000/");
 });
