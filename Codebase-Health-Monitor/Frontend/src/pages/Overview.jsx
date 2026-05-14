@@ -102,8 +102,8 @@ export default function Overview({
   return (
     <div>
       <h2 className="text-2xl font-semibold pb-10">Overview</h2>
-      <div className="flex gap-4">
-        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-[300px] h-[300px] flex rounded-lg items-center justify-center">
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-full md:w-[300px] h-[300px] flex rounded-lg items-center justify-center order-last md:order-first">
           <div className="text-center p-4">
             {healthScore ? (
               <div
@@ -151,7 +151,7 @@ export default function Overview({
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-4 flex-1 h-[300px]">
+        <div className="flex flex-col gap-4 flex-1 sm:h-[300px] order-first md:order-last">
           <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg p-3 text-white text-sm relative flex items-center justify-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -209,8 +209,8 @@ export default function Overview({
           </div>
         </div>
       </div>
-      <div className="flex gap-4">
-        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-full md:w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
           <p className="text-base">Commits per Contributor</p>
           {contributorData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -233,7 +233,7 @@ export default function Overview({
           )}
           {/* Default content if no data is available */}
         </div>
-        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-full md:w-1/2 h-[400px] flex rounded-lg flex-col items-center justify-center mt-4">
           <p className="text-base">Contributions Over Time</p>
           {contributorData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
