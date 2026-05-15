@@ -195,9 +195,7 @@ export default function Overview({
                   <span>{overviewData.updated_at?.slice(0, 10)}</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="text-gray-400">
-                    Most prominent language:
-                  </span>
+                  <span className="text-gray-400">Most used language:</span>
                   <span>{overviewData.language}</span>
                 </div>
               </>
