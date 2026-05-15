@@ -133,7 +133,7 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
             )}
           </div>
         </div>
-        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center h-[350px] overflow-hidden">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg p-4 text-white flex flex-col items-center justify-center h-[350px] overflow-hidden">
           <p className="text-base">Lines Added/Removed per Contributor</p>
           <div className="overflow-y-auto w-full h-full flex flex-col flex-1 items-center">
             {contributorData.length > 0 ? (
