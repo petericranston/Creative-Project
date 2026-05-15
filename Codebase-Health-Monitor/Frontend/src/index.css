@@ -37,7 +37,8 @@ body {
   text-align: center;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   background-color: #111827;
 }
 
