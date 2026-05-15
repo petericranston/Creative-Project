@@ -15,7 +15,7 @@ export default function Navbar() {
     <>
       {/* Burger menu */}
       <button
-        className="lg:hidden fixed top-6 right-6 text-white text-2xl"
+        className="lg:hidden fixed top-6 right-6 text-white text-2xl z-[200]"
         onClick={() => setNavOpen(!navOpen)}
       >
         {navOpen ? "✕" : "☰"}
@@ -23,7 +23,7 @@ export default function Navbar() {
 
       {/* Mobile nav menu*/}
       {navOpen && (
-        <div className="lg:hidden fixed inset-0 bg-[#111827] z-40 flex flex-col p-8 gap-4 mt-22">
+        <div className="lg:hidden fixed inset-0 bg-[#111827] z-[200] flex flex-col p-8 gap-4 mt-22">
           <NavLink
             to="/settings"
             onClick={() => setNavOpen(false)}
