@@ -37,7 +37,7 @@ export default function Navbar() {
               to={link.to}
               end
               onClick={() => setNavOpen(false)}
-              className="text-white text-xl bg-[#1f2937] py-3 px-4 rounded-lg text-center border border-[#3d4199]"
+              className="text-white text-xl bg-[#1f2937] py-3 px-4 rounded-lg text-center"
             >
               {link.label}
             </NavLink>
