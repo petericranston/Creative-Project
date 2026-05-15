@@ -178,7 +178,7 @@ export default function Overview({
               </div>
             )}
           </div>
-          <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg p-4 text-white flex-1 flex flex-col items-center justify-center">
+          <div className="bg-[#1f2937] border border-[#8b5cf6]/25 rounded-lg p-4 text-white flex-1 flex flex-col  items-left justify-left md:items-center md:justify-center">
             {overviewData.name ? (
               <>
                 <div className="flex gap-2">
