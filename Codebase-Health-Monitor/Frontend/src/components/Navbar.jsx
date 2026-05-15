@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 import "../styles/navbar.css";
 
 const links = [
@@ -8,23 +9,64 @@ const links = [
 ];
 
 export default function Navbar() {
+  const [navOpen, setNavOpen] = useState(false);
+
   return (
-    <nav className="nav">
-      <NavLink
-        to="/settings"
-        className="bg-[#1f2937] hover:shadow-[0_0_12px_rgba(139,92,246,0.4)] text-white font-medium text-xl py-2 px-3 rounded-lg mb-3 text-center"
+    <>
+      {/* Burger menu */}
+      <button
+        className="lg:hidden fixed top-6 right-6 text-white text-2xl"
+        onClick={() => setNavOpen(!navOpen)}
       >
-        Settings
-      </NavLink>
-      <ul className="links ">
-        {links.map((link) => (
-          <li key={link.to}>
-            <NavLink to={link.to} end className="link border border-[#3d4199]">
+        {navOpen ? "✕" : "☰"}
+      </button>
+
+      {/* Mobile nav menu*/}
+      {navOpen && (
+        <div className="lg:hidden fixed inset-0 bg-[#111827] z-40 flex flex-col p-8 gap-4 mt-22">
+          <NavLink
+            to="/settings"
+            onClick={() => setNavOpen(false)}
+            className="text-white text-xl bg-[#1f2937] py-3 px-4 rounded-lg text-center"
+          >
+            Settings
+          </NavLink>
+          {links.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              end
+              onClick={() => setNavOpen(false)}
+              className="text-white text-xl bg-[#1f2937] py-3 px-4 rounded-lg text-center border border-[#3d4199]"
+            >
               {link.label}
             </NavLink>
-          </li>
-        ))}
-      </ul>
-    </nav>
+          ))}
+        </div>
+      )}
+
+      {/* Nav bar for larger screen */}
+      <nav className="nav hidden lg:flex">
+        <NavLink
+          to="/settings"
+          className="bg-[#1f2937] text-white font-medium text-xl py-2 px-3 rounded-lg mb-3 text-center"
+        >
+          Settings
+        </NavLink>
+        <ul className="links">
+          {links.map((link) => (
+            <li key={link.to}>
+              <NavLink
+                to={link.to}
+                end
+                className="link border border-[#3d4199]"
+              >
+                {link.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
   );
 }
