@@ -27,7 +27,7 @@ function App() {
 
   return (
     <div className="root">
-      <header>
+      <header className="sticky top-0 z-50">
         <h1 className="flex ">
           <span>Git</span>
           <span className="text-[#a78bfa]">Vitals</span>
