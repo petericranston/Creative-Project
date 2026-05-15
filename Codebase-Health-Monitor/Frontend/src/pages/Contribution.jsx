@@ -43,8 +43,8 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
   return (
     <div>
       <h2 className="text-2xl font-semibold pb-10">Contribution</h2>
-      <div className="flex gap-4">
-        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-[400px] h-[330px] flex rounded-lg items-center justify-center flex-col">
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-full md:w-[400px] h-[330px] flex rounded-lg items-center justify-center flex-col">
           <p className="text-base">Dominance Chart</p>
           {contributorData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -104,8 +104,8 @@ export default function Contribution({ chosenRepo, setChosenRepo, username }) {
           )}
         </div>
       </div>
-      <div className="flex gap-4 mt-4">
-        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-[400px] h-[350px] flex rounded-lg items-center justify-center overflow-hidden flex-col">
+      <div className="flex flex-col md:flex-row gap-4 mt-4">
+        <div className="bg-[#1f2937] border border-[#8b5cf6]/25 w-full md:w-[400px] h-[350px] flex rounded-lg items-center justify-center overflow-hidden flex-col">
           <p className="text-base">Commits per Contributor</p>
           <div className="overflow-y-auto w-full h-full rounded-lg p-4 text-white flex flex-1 items-center flex-col">
             {contributorData.length > 0 ? (
