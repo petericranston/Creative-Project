@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://creative-project-ten-tau.vercel.app",
+    origin: "https://gitvitals-ten-tau.vercel.app",
     credentials: true,
   }),
 );
