@@ -17,10 +17,12 @@ GitVitals: a web dashboard that reports the health of a public GitHub user's rep
 ## Commands
 
 Backend (`cd Backend`):
+
 - `npm run dev` runs nodemon. `npm start` runs node. Default port is 3000 (`PORT` overrides it).
 - There are no tests (`npm test` is a placeholder).
 
 Frontend (`cd Frontend`):
+
 - `npm run dev` starts Vite. `npm run build`, `npm run lint` and `npm run preview` also exist.
 - Vite proxies `/api` to `http://localhost:3000`, with polling file watch and 60s timeouts.
 
@@ -36,6 +38,7 @@ Frontend (`cd Frontend`):
 There is no auth or database. The user types a GitHub username in Settings (validated by calling `/api/getRepos`, which must return a non-empty list) and it is stored in `localStorage["username"]`. `App.jsx` holds `username`, `chosenRepo` and `newUser`, and passes them to pages as props. Every API call passes `repo` and `username` as query params, and all GitHub reads use the server's single `GITHUB_TOKEN`.
 
 Endpoints (all GET, in `server.js`):
+
 - `/api/getRepos?username` returns `[{name}]`, sorted by updated.
 - `/api/overview?repo&username` returns `{name, created_at, updated_at, language}`.
 - `/api/contributors?repo&username` returns `{contributors (with dominanceScore), timeline, healthScore:{overall}}`.
@@ -43,6 +46,7 @@ Endpoints (all GET, in `server.js`):
 - `/api/analyseFile?repo&username&path` sends the file to Claude (`claude-haiku-4-5`) and returns `{analysis:{overallScore, deepDive, conclusion}}`. The prompt asks for raw JSON. The server strips code fences and falls back to `overallScore: 0` if parsing fails.
 
 Scoring (`Models/analysis.js`):
+
 - Dominance score = `commits*0.4 + additions*0.4 + deletions*0.2`.
 - Health score is the average of four 0-100 sub-scores: recency, spread (1 − top committer's share), frequency, and deletion/addition ratio.
 
