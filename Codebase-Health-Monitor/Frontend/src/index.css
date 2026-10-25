@@ -37,8 +37,9 @@ body {
   text-align: center;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh;
+  /* Fixed to the window height so the nav bar always reaches the bottom, only the main content scrolls */
+  height: 100vh;
+  height: 100dvh;
   background-color: #111827;
 }
 

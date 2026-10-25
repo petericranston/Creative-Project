@@ -14,11 +14,16 @@
   gap: 0.25rem;
   list-style: none;
   color: white;
-  height: 100%;
+  flex: 1; /* Fills the space left under the settings button */
+  min-height: 0;
   width: 100%;
   justify-content: space-between;
   margin: 0;
   padding: 0;
+}
+
+.links li {
+  flex: 1; /* Each link takes an equal share of the nav height */
 }
 
 .link {
@@ -29,7 +34,7 @@
   padding: 8px 12px;
   border-radius: 8px;
   background-color: #1f2937;
-  height: 23vh;
+  height: 100%; /* Fills its share so the links never spill out of the nav on short screens */
   display: flex;
   justify-content: center;
   align-items: center;
