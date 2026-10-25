@@ -45,8 +45,11 @@ app.get("/api/contributors", async (request, response) => {
   console.log("contributors called with repo:", chosenRepo);
 
   try {
-    const data = await github.contributorData(chosenRepo, username); //Getting the data from the github model
-    const overviewData = await github.overview(chosenRepo, username);
+    const [data, overviewData] = await Promise.all([
+      //Getting both at the same time as neither needs the other (quicker than waiting for one then the other)
+      github.contributorData(chosenRepo, username), //Getting the data from the github model
+      github.overview(chosenRepo, username),
+    ]);
 
     const totalCommits = data.contributors.reduce(
       (sum, u) => sum + u.commits,

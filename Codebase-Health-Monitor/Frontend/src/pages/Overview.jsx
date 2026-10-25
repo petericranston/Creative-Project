@@ -73,6 +73,21 @@ export default function Overview({
       setOverviewData(data);
     };
 
+    if (chosenRepo) {
+      //Asking for repo data once a repo has been chosen
+      fetchContributors(chosenRepo.name);
+      fetchOverview(chosenRepo.name);
+    }
+    if (newUser == true) {
+      //Resetting chosenRepo variable if the user signs in as a different github user
+      setChosenRepo("");
+      setNewUser(false);
+    }
+  }, [chosenRepo, username, newUser, setChosenRepo, setNewUser]); //Reruns the useEffect if any of these change
+
+  useEffect(() => {
+    //Getting the repo list for the dropdown (kept separate from the effect above so picking a repo doesn't reload the list)
+
     const getRepos = async () => {
       //Getting the repos to be chosen from
       const response = await fetch(
@@ -85,19 +100,8 @@ export default function Overview({
       setRepos(data);
     };
 
-    if (chosenRepo) {
-      //Asking for repo data once a repo has been chosen
-      fetchContributors(chosenRepo.name);
-      fetchOverview(chosenRepo.name);
-    }
-    if (newUser == true) {
-      //Resetting chosenRepo variable if the user signs in as a different github user
-      setChosenRepo("");
-      setNewUser(false);
-    }
-
     getRepos();
-  }, [chosenRepo, username, newUser, setChosenRepo, setNewUser]); //Reruns the useEffect if any of these change
+  }, [username]); //Only gets the repo list again if the username changes, not every time a repo is picked
 
   return (
     <div>

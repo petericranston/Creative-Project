@@ -45,6 +45,12 @@ Endpoints (all GET, in `server.js`):
 - `/api/filesContent?repo&username` returns `[{name, path}]` for all blobs.
 - `/api/analyseFile?repo&username&path` sends the file to Claude (`claude-haiku-4-5`) and returns `{analysis:{overallScore, deepDive, conclusion}}`. The prompt asks for raw JSON. The server strips code fences and falls back to `overallScore: 0` if parsing fails.
 
+Caching: every GitHub request in `APIs/github.js` goes through `cached(key, request)`, an in-memory 5-minute cache.
+- It stores the promise, so requests made at the same moment share one GitHub call.
+- Failed requests are removed from the cache, so they are retried next time.
+- `getRepo()` is the single shared `repos.get`, used by both `overview` and `repoContent`.
+- New commits can take up to 5 minutes to show. A server restart clears the cache.
+
 Scoring (`Models/analysis.js`):
 
 - Dominance score = `commits*0.4 + additions*0.4 + deletions*0.2`.
