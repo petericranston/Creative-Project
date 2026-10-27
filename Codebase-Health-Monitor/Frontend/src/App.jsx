@@ -21,7 +21,7 @@ function App() {
   const [repos, setRepos] = useState([]);
   const [chosenRepo, setChosenRepo] = useState(null);
   const [username, setUsername] = useState(
-    localStorage.getItem("username") || null,
+    localStorage.getItem("username") || "petericranston",
   );
   const [newUser, setNewUser] = useState(false);
 
