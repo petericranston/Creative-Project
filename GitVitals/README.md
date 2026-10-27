@@ -1,6 +1,6 @@
 # GitVitals
 
-GitVitals is a web dashboard that reports on the health of a GitHub user's public repositories. Enter a GitHub username, pick one of their repositories, and GitVitals shows how active the project is, how evenly the work is shared between contributors, and what an AI code reviewer thinks of individual files.
+GitVitals is a web dashboard that reports on the health of a GitHub user's public repositories. Enter a GitHub username, pick one of their repositories, and GitVitals shows how active the project is, how evenly the work is shared between contributors, and provides an AI review of individual files.
 
 Live site: https://gitvitals-ten-tau.vercel.app
 
