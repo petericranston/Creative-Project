@@ -1,6 +1,8 @@
 # CLAUDE.md
 
-GitVitals: a web dashboard that reports the health of a public GitHub user's repositories (activity, contributor balance, AI per-file code review). University creative project. Two independent npm projects in one repo, with no root `package.json`.
+GitVitals: a web dashboard that reports the health of a public GitHub user's repositories (activity, contributor balance, AI per-file code review). University creative project. Two independent npm projects with no root `package.json`.
+
+The git root is the parent folder (`Creative-Project/`), not `GitVitals/`. It also holds `.github/workflows/`, `README.md` and `Technical Experiments/`. Paths in the workflows start with `GitVitals/`, so update them if this folder is renamed.
 
 ## Layout
 
@@ -31,15 +33,15 @@ Frontend (`cd Frontend`):
 - Backend `.env` (gitignored) needs `GITHUB_TOKEN` and `ANTHROPIC_API_KEY`. `PORT` is optional.
 - Frontend needs `VITE_API_URL`, the backend base URL. Every `fetch` uses `${import.meta.env.VITE_API_URL}/api/...`. It is not used with the dev proxy, so set it for local dev too (e.g. `http://localhost:3000`).
 - CORS in `server.js` is hardcoded to `https://gitvitals-ten-tau.vercel.app`. Local dev against a different origin needs that changed, or the Vite proxy with an empty `VITE_API_URL`.
-- Deployment: the frontend is on Vercel and the backend is hosted separately.
+- Deployment: the frontend is on Vercel. The backend is an Azure Web App ("GitVitals"), deployed by a GitHub Actions workflow in the repo root's `.github/workflows/` on every push to `main`. It runs `npm install` and `npm run test --if-present` in `GitVitals/Backend`, then deploys that folder. The `main_gitvitals.yml` at the repo root is a loose copy and does not run.
 
 ## Architecture and data flow
 
-There is no auth or database. The user types a GitHub username in Settings (validated by calling `/api/getRepos`, which must return a non-empty list) and it is stored in `localStorage["username"]`. `App.jsx` holds `username`, `chosenRepo` and `newUser`, and passes them to pages as props. Every API call passes `repo` and `username` as query params, and all GitHub reads use the server's single `GITHUB_TOKEN`.
+There is no auth or database. The user types a GitHub username in Settings (validated by calling `/api/getRepos`, which must return a non-empty list) and it is stored in `localStorage["username"]`. If nothing is stored, `App.jsx` defaults to `"petericranston"`. `App.jsx` holds `username`, `chosenRepo` and `newUser`, and passes them to pages as props. Every API call passes `repo` and `username` as query params, and all GitHub reads use the server's single `GITHUB_TOKEN`.
 
 Endpoints (all GET, in `server.js`):
 
-- `/api/getRepos?username` returns `[{name}]`, sorted by updated.
+- `/api/getRepos?username` returns `[{name}]`, sorted by updated. It has no `per_page`, so only GitHub's default first 30 repos come back. On error it returns 404 with `[]`.
 - `/api/overview?repo&username` returns `{name, created_at, updated_at, language}`.
 - `/api/contributors?repo&username` returns `{contributors (with dominanceScore), timeline, healthScore:{overall}}`.
 - `/api/filesContent?repo&username` returns `[{name, path}]` for all blobs.
@@ -70,5 +72,5 @@ Scoring (`Models/analysis.js`):
 ## Conventions
 
 - Code comments are inline `//Comment` (no space) beside the line they explain. Match that style.
-- Frontend data fetching is done in `useEffect` with inner async functions and `credentials: "include"`.
+- Frontend page data is fetched in `useEffect` with inner async functions and `credentials: "include"`. The exception is the username check in `Settings.jsx`, which runs in a click handler without `credentials`.
 - Prettier-style formatting: double quotes, semicolons, 2 spaces.
